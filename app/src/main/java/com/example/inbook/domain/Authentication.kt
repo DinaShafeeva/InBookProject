@@ -7,42 +7,52 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class Authentication(var mAuth: FirebaseAuth)  {
 
-     fun createAccount(email: String, password: String, baseContext: Context, context: Activity) {
+    private  var database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    var myRef: DatabaseReference = database.reference
+
+     fun createAccount(email: String, password: String): String {
         Log.d(TAG, "createAccount:$email")
+         var result: String =  ""
         mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(context) { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    val user: FirebaseUser? = mAuth.currentUser
+                    myRef.child("user").child(user?.uid.toString()).setValue(user)
+
                     Log.d(TAG, "createUserWithEmail:success")
-                    Toast.makeText(baseContext, "Registration success.",
-                        Toast.LENGTH_SHORT).show()
+                    result = "success"
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Registration failed.",
-                        Toast.LENGTH_SHORT).show()
+                    result = "failed"
                 }
             }
+         return result
     }
 
-     fun signIn(email: String, password: String, baseContext: Context, context: Activity) {
+     fun signIn(email: String, password: String):String {
         Log.d(TAG, "signIn:$email")
-
+         var result: String =  ""
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(context) { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
-                    Toast.makeText(baseContext, "Authentication success.",
-                        Toast.LENGTH_SHORT).show()
+                    result = "success"
+
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    result = "failed"
                 }
             }
-    }
+         return result
+     }
 
     fun signOut() {
         mAuth.signOut()
@@ -59,22 +69,26 @@ class Authentication(var mAuth: FirebaseAuth)  {
         }
     }
 
-    fun signInWithGoogle(acct: GoogleSignInAccount, baseContext: Context, context: Activity) {
+    fun signInWithGoogle(acct: GoogleSignInAccount): String{
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
-
+        var result: String =  ""
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(context) { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    val user: FirebaseUser? = mAuth.currentUser
+                    myRef.child("user").child(user?.uid.toString()).setValue(user)
+
                     Log.d(TAG, "signInWithCredential:success")
-                    Toast.makeText(baseContext, "Authentication success.",
-                        Toast.LENGTH_SHORT).show()
+                    result = "success"
+
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    result = "failed"
                 }
             }
+        return result
     }
 
 
