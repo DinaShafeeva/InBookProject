@@ -1,8 +1,8 @@
-package com.example.inbook.domain
+package com.example.inbook.app.recyclerView
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
-import com.example.inbook.data.Book
+import com.example.inbook.domain.Book
 
 object Diff : DiffUtil.ItemCallback<Book>() {
 

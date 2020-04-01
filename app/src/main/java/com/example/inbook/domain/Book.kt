@@ -1,4 +1,4 @@
-package com.example.inbook.data
+package com.example.inbook.domain
 
 data class Book (
     var id: Int,

@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.inbook.R
-import com.example.inbook.data.Book
-import com.example.inbook.domain.BookAdapter
+import com.example.inbook.app.recyclerView.BookAdapter
+import com.example.inbook.domain.Book
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 
 class MyBooksFragment : Fragment() {

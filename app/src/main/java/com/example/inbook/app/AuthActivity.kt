@@ -2,9 +2,8 @@ package com.example.inbook.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.inbook.R
-import com.example.inbook.domain.Authentication
+import com.example.inbook.data.AuthenticationImpl
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -30,7 +29,8 @@ class AuthActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        val authentication: Authentication = Authentication(mAuth)
+        val authentication: AuthenticationImpl =
+            AuthenticationImpl(mAuth)
 
         val btn_reg = btn_register.setOnClickListener() {x ->
             if(
