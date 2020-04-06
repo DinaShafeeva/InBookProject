@@ -3,6 +3,7 @@ package com.example.inbook.app
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.inbook.R
+import com.example.inbook.app.fragments.MyBooksFragment
 import com.example.inbook.data.AuthenticationImpl
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

@@ -1,4 +1,4 @@
-package com.example.inbook.app
+package com.example.inbook.app.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,6 +27,7 @@ class BookFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): BookFragment = BookFragment()
+        fun newInstance(): BookFragment =
+            BookFragment()
     }
 }

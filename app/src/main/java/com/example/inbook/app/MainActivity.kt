@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.inbook.R
+import com.example.inbook.app.fragments.MyBooksFragment
+import com.example.inbook.app.fragments.ProfileFragment
+import com.example.inbook.app.fragments.SearchBookFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 

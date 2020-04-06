@@ -1,4 +1,4 @@
-package com.example.inbook.app
+package com.example.inbook.app.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -25,6 +25,7 @@ class SearchBookFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): SearchBookFragment = SearchBookFragment()
+        fun newInstance(): SearchBookFragment =
+            SearchBookFragment()
     }
 }
