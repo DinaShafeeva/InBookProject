@@ -4,6 +4,16 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
+ext {
+    API_KEY = 'hBQLcxINXNCixg66QQuA'
+}
+if ("true" == System.getenv("CI")) {
+    def key = System.getenv("MARVEL_KEY")
+    API_KEY = "\"$key\""
+} else {
+    API_KEY = apiKey
+}
+
 android {
     compileSdkVersion 28
 
@@ -16,6 +26,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'API_ENDPOINT', baseUrl
+        it.buildConfigField 'String', 'API_KEY', apiKey
+        it.buildConfigField 'String', 'SECRET', secret
+        it.buildConfigField 'String', 'CALLBACK', "\"oauth://goodreads\""
     }
 
     buildTypes {
@@ -53,6 +70,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.8'
+    implementation "com.squareup.retrofit2:retrofit:2.6.4"
+    implementation "com.squareup.retrofit2:converter-gson:2.6.4"
+    implementation "com.squareup.retrofit2:converter-simplexml:2.6.4"
     def lifecycle_version = "2.2.0"
     def arch_version = "2.1.0"
 
