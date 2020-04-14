@@ -7,7 +7,7 @@
         android:title="@string/book" />
 
     <item
-        android:id="@+id/btn_book_shelf"
+        android:id="@+id/btn_search"
         android:icon="@drawable/icn_book_shelf"
         android:iconTint="#FFFFFF"
         android:title="@string/book_shelf" />

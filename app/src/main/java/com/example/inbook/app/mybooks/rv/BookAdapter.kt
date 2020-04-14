@@ -1,8 +1,8 @@
-package com.example.inbook.app.recyclerView
+package com.example.inbook.app.mybooks.rv
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.example.inbook.domain.Book
+import com.example.inbook.domain.mybooks.Book
 
 class BookAdapter(
     private var dataSource: ArrayList<Book>,

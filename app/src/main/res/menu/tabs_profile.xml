@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btn_actions"
+        android:icon="@drawable/icn_more"
+        android:iconTint="#FFFFFF"
+        android:title="@string/actions" />
+    <item
+        android:id="@+id/btn_quotes"
+        android:icon="@drawable/icn_quotes"
+        android:iconTint="#FFFFFF"
+        android:title="@string/quotes" />
+    <item
+        android:id="@+id/btn_comments"
+        android:icon="@drawable/icn_comments"
+        android:iconTint="#FFFFFF"
+        android:title="@string/comments" />
+</menu>

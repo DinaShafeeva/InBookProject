@@ -1,17 +1,33 @@
-package com.example.inbook.data
+package com.example.inbook.data.authentication
 
+import android.app.Application
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import com.example.inbook.domain.Authentication
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.example.inbook.domain.authentication.Authentication
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import javax.inject.Inject
 
-class AuthenticationImpl(var mAuth: FirebaseAuth):
+
+class AuthenticationImpl():
     Authentication {
+
+    var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    lateinit var googleSignInClient: GoogleSignInClient
+
+    @Inject
+    lateinit var application: Application
+
+    @Inject
+    lateinit var intent: Intent
 
     private  var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     var myRef: DatabaseReference = database.reference
@@ -68,10 +84,20 @@ class AuthenticationImpl(var mAuth: FirebaseAuth):
         }
     }
 
-    override fun signInWithGoogle(acct: GoogleSignInAccount): String{
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
+    override fun signInWithGoogle(string: String): String{
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(string)
+            .requestEmail()
+            .build()
+         googleSignInClient = GoogleSignIn.getClient(application, gso)
+
+        var acct = GoogleSignIn.getSignedInAccountFromIntent(intent)?.
+            getResult(ApiException::class.java)
+
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct?.id)
         var result: String =  ""
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

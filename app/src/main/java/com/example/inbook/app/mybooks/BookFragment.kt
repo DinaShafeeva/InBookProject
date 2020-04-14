@@ -1,4 +1,4 @@
-package com.example.inbook.app.fragments
+package com.example.inbook.app.mybooks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,8 @@ class BookFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        val id:Int = arguments?.getInt("id") ?: 0
 
     }
 

@@ -1,12 +1,13 @@
-package com.example.inbook.app.recyclerView
+package com.example.inbook.app.mybooks.rv
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inbook.R
-import com.example.inbook.domain.Book
+import com.example.inbook.domain.mybooks.Book
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.book_item.*
 
 class BookHolder(
     override val containerView: View,

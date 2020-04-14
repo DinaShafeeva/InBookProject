@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.fragments.BookFragment">
+    tools:context=".app.mybooks.BookFragment">
 
     <ImageView
         android:id="@+id/iv_image_book_fragment"

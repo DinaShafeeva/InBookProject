@@ -1,11 +1,11 @@
-package com.example.inbook.app.viewModels
+package com.example.inbook.app.mybooks.vm
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.inbook.domain.BookInteractor
-import com.example.inbook.domain.Book
+import com.example.inbook.domain.mybooks.BookInteractor
+import com.example.inbook.domain.mybooks.Book
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

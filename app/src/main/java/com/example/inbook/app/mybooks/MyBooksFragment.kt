@@ -1,4 +1,4 @@
-package com.example.inbook.app.fragments
+package com.example.inbook.app.mybooks
 
 import android.content.Context
 import android.os.Bundle
@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inbook.R
-import com.example.inbook.app.recyclerView.BookAdapter
-import com.example.inbook.app.viewModels.BookViewModel
-import com.example.inbook.domain.Book
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.example.inbook.app.mybooks.rv.BookAdapter
+import com.example.inbook.app.mybooks.vm.BookViewModel
+import com.example.inbook.domain.mybooks.Book
 import kotlinx.android.synthetic.main.fragment_my_books.*
 
 
@@ -22,6 +19,8 @@ class MyBooksFragment : Fragment() {
     private lateinit var  list: ArrayList<Book>
     private lateinit var adapter: BookAdapter
     private lateinit var viewModel: BookViewModel
+    private lateinit var bundle: Bundle
+
 //    private lateinit var mAuth: FirebaseAuth
 //    private lateinit var database: FirebaseDatabase
 
@@ -45,9 +44,12 @@ class MyBooksFragment : Fragment() {
 
         list = ArrayList<Book>()
         adapter = BookAdapter(list) { book ->
-            navigateTo(book.id)
+            bundle = Bundle()
+            bundle.putInt("id", book.id)
+            Navigation.findNavController(view).navigate(R.id.profileFragment, bundle)
+
         }
-        rv_my_books.layoutManager = LinearLayoutManager(this)
+        rv_my_books.layoutManager = LinearLayoutManager(context)
         rv_my_books.adapter = adapter
         viewModel = BookViewModel()
         getData()

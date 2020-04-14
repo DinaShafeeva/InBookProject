@@ -1,7 +1,7 @@
-package com.example.inbook.app.recyclerView
+package com.example.inbook.app.mybooks.rv
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.inbook.domain.Book
+import com.example.inbook.domain.mybooks.Book
 
 class DiffUtil (private val oldList: List<Book>, private val newList: List<Book>) :
     DiffUtil.Callback() {

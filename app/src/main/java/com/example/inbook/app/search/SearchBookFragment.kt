@@ -1,4 +1,4 @@
-package com.example.inbook.app.fragments
+package com.example.inbook.app.search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
