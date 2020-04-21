@@ -19,14 +19,14 @@ class AuthFragment : Fragment() {
         val authentication: AuthenticationImpl =
             AuthenticationImpl()
 
-        val btn_reg = btn_register.setOnClickListener() { x ->
+        btn_register.setOnClickListener() { x ->
             if (
                 authentication.createAccount(et_email.text.toString(), et_password.text.toString())
                     .equals("success")
             )
                 view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) };
         }
-        val btn_auth = btn_auth.setOnClickListener() { x ->
+        btn_auth.setOnClickListener() { x ->
             if (
                 authentication.signIn(et_email.text.toString(), et_password.text.toString())
                     .equals("success")
@@ -34,7 +34,7 @@ class AuthFragment : Fragment() {
                 view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) };
 
         }
-        val btn_google_sign_in = btn_google_sign_in.setOnClickListener() { x ->
+        btn_google_sign_in.setOnClickListener() { x ->
             if (
                 authentication.signInWithGoogle(getString(R.string.default_web_client_id))
                     .equals("success")

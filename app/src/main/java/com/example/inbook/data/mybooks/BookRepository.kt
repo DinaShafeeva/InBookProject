@@ -1,6 +1,6 @@
 package com.example.inbook.data.mybooks
 
-import com.example.inbook.domain.mybooks.Book
+import com.example.inbook.domain.mybooks.models.Book
 import io.reactivex.Observable
 
 class BookRepository() {
