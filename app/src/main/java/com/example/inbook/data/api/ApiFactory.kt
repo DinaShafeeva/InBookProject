@@ -9,10 +9,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 
-object ApiFactory {
+class ApiFactory {
 
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url().newBuilder()
+            .addQueryParameter("key", BuildConfig.API_KEY)
             .build()
 
         val newRequest = chain.request().newBuilder().url(newUrl).build()
@@ -31,14 +32,13 @@ object ApiFactory {
             .client(client)
             .baseUrl(BuildConfig.API_ENDPOINT)
             .addConverterFactory(GsonConverterFactory.create())
-            .addConverterFactory(SimpleXmlConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 
 
-    val  goodReadsApi: GoodReadsApi by lazy {
-        retrofit.create(GoodReadsApi::class.java)
+    val  googleBooksApi: GoogleBooksApi by lazy {
+        retrofit.create(GoogleBooksApi::class.java)
     }
 
 }

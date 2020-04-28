@@ -5,10 +5,10 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 ext {
-    API_KEY = 'hBQLcxINXNCixg66QQuA'
+    API_KEY = 'AIzaSyAMvt5_u_tI-z7i7zdUNIe72TSUcu7wzDU'
 }
 if ("true" == System.getenv("CI")) {
-    def key = System.getenv("MARVEL_KEY")
+    def key = System.getenv("API_KEY")
     API_KEY = "\"$key\""
 } else {
     API_KEY = apiKey
@@ -31,8 +31,6 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'API_ENDPOINT', baseUrl
         it.buildConfigField 'String', 'API_KEY', apiKey
-        it.buildConfigField 'String', 'SECRET', secret
-        it.buildConfigField 'String', 'CALLBACK', "\"oauth://goodreads\""
     }
 
     buildTypes {
@@ -98,4 +96,9 @@ dependencies {
 
     implementation "com.google.dagger:dagger:2.27"
     kapt "com.google.dagger:dagger-compiler:2.27"
+
+
+    implementation 'com.google.dagger:dagger-android:2.15'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    implementation 'com.google.dagger:dagger-android-support:2.13'
 }
