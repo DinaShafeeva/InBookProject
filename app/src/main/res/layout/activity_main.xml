@@ -36,6 +36,7 @@
         android:layout_gravity="bottom"
         android:background="@color/colorPrimaryDark"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="@id/container_main"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/b_n_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

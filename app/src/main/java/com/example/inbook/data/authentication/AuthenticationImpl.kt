@@ -1,9 +1,11 @@
 package com.example.inbook.data.authentication
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import com.example.inbook.di.App
 import com.example.inbook.domain.authentication.Authentication
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -17,17 +19,14 @@ import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
 
 
-class AuthenticationImpl():
-    Authentication {
+class AuthenticationImpl @Inject constructor(val context: Context)
+    : Authentication {
 
     var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     lateinit var googleSignInClient: GoogleSignInClient
 
-    @Inject
-    lateinit var application: Application
-
-    @Inject
-    lateinit var intent: Intent
+//    @Inject
+//    lateinit var application: Application
 
     private  var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     var myRef: DatabaseReference = database.reference
@@ -38,12 +37,11 @@ class AuthenticationImpl():
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-
                     val user: FirebaseUser? = mAuth.currentUser
                     myRef.child("user").child(user?.uid.toString()).setValue(user)
-
                     Log.d(TAG, "createUserWithEmail:success")
                     result = "success"
+
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     result = "failed"
@@ -90,9 +88,9 @@ class AuthenticationImpl():
             .requestIdToken(string)
             .requestEmail()
             .build()
-         googleSignInClient = GoogleSignIn.getClient(application, gso)
+         googleSignInClient = GoogleSignIn.getClient(context, gso)
 
-        var acct = GoogleSignIn.getSignedInAccountFromIntent(intent)?.
+        var acct = GoogleSignIn.getSignedInAccountFromIntent(googleSignInClient.signInIntent)?.
             getResult(ApiException::class.java)
 
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct?.id)
@@ -101,10 +99,8 @@ class AuthenticationImpl():
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-
                     val user: FirebaseUser? = mAuth.currentUser
                     myRef.child("user").child(user?.uid.toString()).setValue(user)
-
                     Log.d(TAG, "signInWithCredential:success")
                     result = "success"
 
@@ -115,7 +111,6 @@ class AuthenticationImpl():
             }
         return result
     }
-
 
     companion object {
         private const val TAG = "EmailPassword"

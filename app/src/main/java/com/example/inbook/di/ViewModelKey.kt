@@ -1,4 +1,4 @@
-package com.example.inbook.data.mybooks.di
+package com.example.inbook.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
