@@ -21,54 +21,14 @@ class AuthFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var viewModel: AuthViewModel? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        btn_register.setOnClickListener() { x ->
-            if (
-                viewModel?.createAccount(et_email.text.toString(), et_password.text.toString())
-                    .equals("success")
-            )
-                view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) };
-        }
-        btn_auth.setOnClickListener() { x ->
-            if (
-                viewModel?.signIn(et_email.text.toString(), et_password.text.toString())
-                    .equals("success")
-            )
-                view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) };
-
-        }
-        btn_google_sign_in.setOnClickListener() { x ->
-            if (
-                viewModel?.signInWithGoogle(getString(R.string.default_web_client_id))
-                    .equals("success")
-            )
-                view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) };
-        }
-        getActivity()?.let {
-            Snackbar.make(
-                it.findViewById(android.R.id.content),
-                "Failed",
-                Snackbar.LENGTH_LONG
-            ).show()
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         AppInjector.plusAuthComponent().inject(this)
         initViewModel()
     }
 
     fun initViewModel(){
-        val viewModel by lazy {
-            ViewModelProvider(
-                this,
-                viewModelFactory
-            ).get(AuthViewModel::class.java)
-        }
-        this.viewModel = viewModel
+         viewModel = ViewModelProvider(this, viewModelFactory).get(AuthViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -78,6 +38,60 @@ class AuthFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_auth, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btn_register.setOnClickListener() { x ->
+            if (
+                viewModel?.createAccount(et_email.text.toString(), et_password.text.toString())
+                    .equals("success")
+            )
+                getActivity()?.let {
+                    Snackbar.make(
+                        it.findViewById(android.R.id.content),
+                        "Success",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) }
+        }
+        btn_auth.setOnClickListener() { x ->
+            if (
+                viewModel?.signIn(et_email.text.toString(), et_password.text.toString())
+                    .equals("success")
+            )
+                getActivity()?.let {
+                    Snackbar.make(
+                        it.findViewById(android.R.id.content),
+                        "Success",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) }
+
+        }
+        btn_google_sign_in.setOnClickListener() { x ->
+            if (
+                viewModel?.signInWithGoogle(getString(R.string.default_web_client_id))
+                    .equals("success")
+            )
+                getActivity()?.let {
+                    Snackbar.make(
+                        it.findViewById(android.R.id.content),
+                        "Success",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                view?.let { Navigation.findNavController(it).navigate(R.id.profileFragment) }
+        }
+        getActivity()?.let {
+            Snackbar.make(
+                it.findViewById(android.R.id.content),
+                "Failed",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         AppInjector.clearAuthComponent()

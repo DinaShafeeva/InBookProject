@@ -25,9 +25,6 @@ class AuthenticationImpl @Inject constructor(val context: Context)
     var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     lateinit var googleSignInClient: GoogleSignInClient
 
-//    @Inject
-//    lateinit var application: Application
-
     private  var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     var myRef: DatabaseReference = database.reference
 
@@ -38,7 +35,7 @@ class AuthenticationImpl @Inject constructor(val context: Context)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user: FirebaseUser? = mAuth.currentUser
-                    myRef.child("user").child(user?.uid.toString()).setValue(user)
+ //                   myRef.child("user").child(user?.uid.toString()).setValue(user)
                     Log.d(TAG, "createUserWithEmail:success")
                     result = "success"
 
@@ -100,7 +97,8 @@ class AuthenticationImpl @Inject constructor(val context: Context)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user: FirebaseUser? = mAuth.currentUser
-                    myRef.child("user").child(user?.uid.toString()).setValue(user)
+ //                   myRef.child("user").child(user?.uid.toString()).setValue(user)
+                    print("все зашибись")
                     Log.d(TAG, "signInWithCredential:success")
                     result = "success"
 
