@@ -46,7 +46,7 @@ class MyBooksFragment : Fragment() {
         list = bookService.getMyBooks()
         adapter = BookAdapter(list) { book ->
             bundle = Bundle()
-            book.value?.id?.let { bundle.putInt("id", it) }
+            book.value?.id?.let { bundle.putString("id", it) }
             Navigation.findNavController(view).navigate(R.id.profileFragment, bundle)
 
         }
@@ -62,7 +62,7 @@ class MyBooksFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-     //   AppInjector.plusBookComponent().inject(this)
+        AppInjector.plusBookComponent().inject(this)
         initViewModel()
     }
 

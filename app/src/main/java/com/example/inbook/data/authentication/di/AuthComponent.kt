@@ -9,7 +9,6 @@ import dagger.Subcomponent
 @Subcomponent(modules = [AuthModule::class])
 interface AuthComponent {
     fun inject(authFragment: AuthFragment)
-    //fun provideAuthViewModel(): AuthViewModel
 
     @Subcomponent.Builder
     interface Builder{

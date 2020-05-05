@@ -8,6 +8,7 @@ import com.example.inbook.data.mybooks.BookServiceImpl
 import com.example.inbook.domain.mybooks.interactor.BookInteractor
 import com.example.inbook.domain.mybooks.models.Book
 import com.example.inbook.domain.mybooks.services.BookService
+import com.example.inbook.domain.response.BookResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 class BookViewModel( val interactor: BookInteractor,
                      val service: BookService): ViewModel() {
 
-    private val bookLiveData: MutableLiveData<Book> = MutableLiveData()
+    private val bookLiveData: MutableLiveData<BookResponse> = MutableLiveData()
 
     private fun  getBookMutableLiveData(id: Int): MutableLiveData<Book> {
         var data: Disposable = interactor.getBook(id).subscribeOn(Schedulers.io())
@@ -26,9 +27,36 @@ class BookViewModel( val interactor: BookInteractor,
                 {
                         error -> Log.e("Error" , error.toString())
                 })
-        return bookLiveData
+        var book: Book = Book(bookLiveData.value?.items?.get(0)?.id ?:"-1",
+            bookLiveData.value?.items?.get(0)?.volumeInfo?.title ?: "null",
+            bookLiveData.value?.items?.get(0)?.volumeInfo?.authors?.get(0) ?: "null",
+            false,
+            bookLiveData.value?.items?.get(0)?.volumeInfo?.description ?: "null")
+
+        var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData(book)
+        return bookMutableLiveData
     }
     fun getBook(id: Int): LiveData<Book> = getBookMutableLiveData(id)
 
     private var myBooksLiveData: MutableLiveData<List<Book>> = MutableLiveData()
+
+    private fun getBookMutableLiveDataByName(name:String): MutableLiveData<Book> {
+        var data: Disposable = interactor.getBookByName(name).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    data -> bookLiveData.value = data
+                Log.d("Book: " , data.toString())
+            },
+                {
+                        error -> Log.e("Error" , error.toString())
+                })
+        var book: Book = Book(bookLiveData.value?.items?.get(0)?.id ?:"-1",
+            bookLiveData.value?.items?.get(0)?.volumeInfo?.title ?: "null",
+            bookLiveData.value?.items?.get(0)?.volumeInfo?.authors?.get(0) ?: "null",
+            false,
+            bookLiveData.value?.items?.get(0)?.volumeInfo?.description ?: "null")
+        Log.d("book = ", book.nameOfBook)
+        var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData(book)
+        return bookMutableLiveData
+    }
+    fun getBook(name: String): LiveData<Book> = getBookMutableLiveDataByName(name)
 }
