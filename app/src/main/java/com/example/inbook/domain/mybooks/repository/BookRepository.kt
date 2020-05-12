@@ -8,4 +8,5 @@ import io.reactivex.Single
 interface BookRepository {
     fun getBook(id: Int): Single<BookResponse>
     fun getBookByName(name:String): Single<BookResponse>
+    fun getBooks(): List<Book>
 }

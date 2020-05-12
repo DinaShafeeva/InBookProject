@@ -9,7 +9,7 @@ data class VolumeInfo(
     @SerializedName("authors")
     var authors: List<String>,
     @SerializedName("averageRating")
-    var averageRating: Int,
+    var averageRating: Float,
     @SerializedName("canonicalVolumeLink")
     var canonicalVolumeLink: String,
     @SerializedName("categories")

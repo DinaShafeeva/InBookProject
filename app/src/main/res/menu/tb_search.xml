@@ -8,6 +8,6 @@
         android:title="Search"
         android:iconTint="#FFFFFF"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
 </menu>

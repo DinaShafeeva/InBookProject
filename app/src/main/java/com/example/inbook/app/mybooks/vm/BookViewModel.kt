@@ -39,23 +39,28 @@ class BookViewModel( val interactor: BookInteractor,
     fun getBook(id: Int): LiveData<Book> = getBookMutableLiveData(id)
 
     private var myBooksLiveData: MutableLiveData<List<Book>> = MutableLiveData()
+    private var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData()
 
     private fun getBookMutableLiveDataByName(name:String): MutableLiveData<Book> {
         var data: Disposable = interactor.getBookByName(name).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     data -> bookLiveData.value = data
                 Log.d("Book: " , data.toString())
+                Log.i("Book: ", data.items.get(0).volumeInfo.description)
+
+                var book: Book = Book(bookLiveData.value?.items?.get(0)?.id ?:"-1",
+                    bookLiveData.value?.items?.get(0)?.volumeInfo?.title ?: "name",
+                    bookLiveData.value?.items?.get(0)?.volumeInfo?.authors?.get(0) ?: "author",
+                    false,
+                    bookLiveData.value?.items?.get(0)?.volumeInfo?.description ?: "description")
+                Log.d("book = ", book.nameOfBook)
+                 bookMutableLiveData = MutableLiveData(book)
+
             },
                 {
                         error -> Log.e("Error" , error.toString())
                 })
-        var book: Book = Book(bookLiveData.value?.items?.get(0)?.id ?:"-1",
-            bookLiveData.value?.items?.get(0)?.volumeInfo?.title ?: "null",
-            bookLiveData.value?.items?.get(0)?.volumeInfo?.authors?.get(0) ?: "null",
-            false,
-            bookLiveData.value?.items?.get(0)?.volumeInfo?.description ?: "null")
-        Log.d("book = ", book.nameOfBook)
-        var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData(book)
+
         return bookMutableLiveData
     }
     fun getBook(name: String): LiveData<Book> = getBookMutableLiveDataByName(name)
