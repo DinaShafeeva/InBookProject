@@ -12,14 +12,14 @@ import kotlinx.android.synthetic.main.book_item.*
 
 class BookHolder(
     override val containerView: View,
-    private val clickLambda: (LiveData<Book>) -> Unit
+    private val clickLambda: (Book) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    fun bind(book: LiveData<Book>) {
+    fun bind(book: Book) {
 
-        tv_name_of_book.text = book.value?.nameOfBook
-        tv_author.text = book.value?.author
-        tv_description.text = book.value?.description
+        tv_name_of_book.text = book.nameOfBook
+        tv_author.text = book.author
+        tv_description.text = book.description
 
         itemView.setOnClickListener {
             clickLambda(book)
@@ -27,7 +27,7 @@ class BookHolder(
     }
 
     companion object {
-        fun create(parent: ViewGroup, clickLambda: (LiveData<Book>) -> Unit) =
+        fun create(parent: ViewGroup, clickLambda: (Book) -> Unit) =
             BookHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.book_item, parent, false),
                 clickLambda

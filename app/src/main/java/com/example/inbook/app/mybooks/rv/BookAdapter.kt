@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.inbook.domain.mybooks.models.Book
 
 class BookAdapter(
-    private var dataSource: ArrayList<LiveData<Book>>,
-    private val clickLambda: (LiveData<Book>) -> Unit
-) : ListAdapter<LiveData<Book>, BookHolder>(
+    private var dataSource: List<Book>,
+    private val clickLambda: (Book) -> Unit
+) : ListAdapter<Book, BookHolder>(
     Diff
 ) {
 
@@ -23,7 +23,7 @@ class BookAdapter(
     override fun onBindViewHolder(holder: BookHolder, position: Int) =
         holder.bind(dataSource[position])
 
-    fun updateList(newList: ArrayList<LiveData<Book>>) {
+    fun updateList(newList: List<Book>) {
         androidx.recyclerview.widget.DiffUtil.calculateDiff(
             DiffUtil(
                 this.dataSource,
@@ -32,7 +32,7 @@ class BookAdapter(
             true
         )
             .dispatchUpdatesTo(this)
-        this.dataSource.clear()
-        this.dataSource.addAll(newList)
+       // this.dataSource.clear()
+        //this.dataSource.addAll(newList)
     }
 }

@@ -5,21 +5,21 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.example.inbook.domain.mybooks.models.Book
 
-object Diff : DiffUtil.ItemCallback<LiveData<Book>>() {
+object Diff : DiffUtil.ItemCallback<Book>() {
 
-    override fun areItemsTheSame(oldItem: LiveData<Book>, newItem: LiveData<Book>): Boolean =
-        oldItem.value?.nameOfBook == newItem.value?.nameOfBook
+    override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean =
+        oldItem.nameOfBook == newItem.nameOfBook
 
-    override fun areContentsTheSame(oldItem: LiveData<Book>, newItem: LiveData<Book>): Boolean =
-        oldItem.value?.author == newItem.value?.author
+    override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean =
+        oldItem.author == newItem.author
 
-    override fun getChangePayload(oldItem: LiveData<Book>, newItem: LiveData<Book>): Any? {
+    override fun getChangePayload(oldItem: Book, newItem: Book): Any? {
         val diffBundle = Bundle()
-        if (oldItem.value?.nameOfBook != newItem.value?.nameOfBook) {
-            diffBundle.putString("name", newItem.value?.nameOfBook)
+        if (oldItem.nameOfBook != newItem.nameOfBook) {
+            diffBundle.putString("name", newItem.nameOfBook)
         }
-        if (oldItem.value?.author != newItem.value?.author) {
-            diffBundle.putString("author", newItem.value?.author)
+        if (oldItem.author != newItem.author) {
+            diffBundle.putString("author", newItem.author)
         }
         return if (diffBundle.isEmpty) null else diffBundle
     }

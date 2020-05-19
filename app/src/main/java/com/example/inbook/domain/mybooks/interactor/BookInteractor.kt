@@ -10,4 +10,8 @@ import javax.inject.Inject
 interface BookInteractor{
     fun getBook(id: Int): Single<BookResponse>
     fun getBookByName(name:String): Single<BookResponse>
+    fun getBooks(): List<Book>
+    fun like(value: Book?)
+    fun addBook(book: Book?)
+    fun isBookWasRead(value: Book?): Boolean
 }

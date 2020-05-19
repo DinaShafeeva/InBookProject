@@ -8,6 +8,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.inbook.R
 import com.example.inbook.app.mybooks.vm.BookViewModel
 import com.example.inbook.di.AppInjector
@@ -20,6 +21,8 @@ import javax.inject.Inject
 
 class SearchBookFragment : Fragment() {
     private var viewModel: BookViewModel? = null
+    private lateinit var bundle: Bundle
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -62,9 +65,13 @@ class SearchBookFragment : Fragment() {
     fun queryTextSubmit(query: String): Boolean {
          viewModel?.getBook(query)?.observe(this, Observer {
             try {
-                tv_name_search.text = it.nameOfBook
-                tv_author_search.text = it.author
-                tv_description_search.text = it.description
+//                tv_name_search.text = it.nameOfBook
+//                tv_author_search.text = it.author
+//                tv_description_search.text = it.description
+
+                bundle = Bundle()
+                bundle.putString("name", it.nameOfBook)
+                view?.let { it1 -> Navigation.findNavController(it1).navigate(R.id.bookFragment, bundle) }
 
             } catch (e: IOException) {
                 getActivity()?.let {

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.example.inbook.domain.mybooks.models.Book
 
-class DiffUtil (private val oldList: List<LiveData<Book>>, private val newList: List<LiveData<Book>>) :
+class DiffUtil (private val oldList: List<Book>, private val newList: List<Book>) :
     DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =

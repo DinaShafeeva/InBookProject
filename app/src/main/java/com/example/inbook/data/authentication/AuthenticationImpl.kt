@@ -87,7 +87,7 @@ class AuthenticationImpl @Inject constructor(val context: Context)
             .build()
          googleSignInClient = GoogleSignIn.getClient(context, gso)
 
-        var acct = GoogleSignIn.getSignedInAccountFromIntent(googleSignInClient.signInIntent)?.
+        val acct = GoogleSignIn.getSignedInAccountFromIntent(googleSignInClient.signInIntent)?.
             getResult(ApiException::class.java)
 
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct?.id)

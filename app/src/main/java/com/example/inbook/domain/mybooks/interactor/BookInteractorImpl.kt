@@ -17,4 +17,20 @@ constructor(
     override fun getBookByName(name: String): Single<BookResponse> {
         return repository.getBookByName(name)
     }
+
+    override fun getBooks(): List<Book> {
+        return repository.getBooks()
+    }
+
+    override fun like(value: Book?) {
+        repository.like(value)
+    }
+
+    override fun addBook(book: Book?) {
+        repository.addBook(book)
+    }
+
+    override fun isBookWasRead(value: Book?): Boolean {
+        return repository.isBookWasRead(value)
+    }
 }
