@@ -4,12 +4,12 @@
         android:id="@+id/btn_actions"
         android:icon="@drawable/icn_more"
         android:iconTint="#FFFFFF"
-        android:title="@string/actions" />
+        android:title="Want to read" />
     <item
         android:id="@+id/btn_quotes"
         android:icon="@drawable/icn_quotes"
         android:iconTint="#FFFFFF"
-        android:title="@string/quotes" />
+        android:title="Liked" />
     <item
         android:id="@+id/btn_comments"
         android:icon="@drawable/icn_comments"

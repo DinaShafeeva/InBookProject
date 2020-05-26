@@ -22,4 +22,7 @@ interface BookDao {
 
     @Query("SELECT * FROM book WHERE id = :id")
     fun getBook(id: String): Maybe<Book>
+
+    @Query("SELECT * FROM book WHERE status = 1")
+    fun getWantToReadBooks(): Maybe<List<Book>>
 }

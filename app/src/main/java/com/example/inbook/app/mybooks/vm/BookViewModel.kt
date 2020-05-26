@@ -4,14 +4,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.inbook.data.mybooks.BookServiceImpl
 import com.example.inbook.domain.mybooks.interactor.BookInteractor
 import com.example.inbook.domain.mybooks.models.Book
 import com.example.inbook.domain.mybooks.services.BookService
 import com.example.inbook.domain.response.BookResponse
+import io.reactivex.Completable
+import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
+
 
 class BookViewModel( val interactor: BookInteractor,
                      val service: BookService): ViewModel() {
@@ -39,14 +42,32 @@ class BookViewModel( val interactor: BookInteractor,
                 {
                         error -> Log.e("Error" , error.toString())
                 })
-
         return bookMutableLiveData
     }
+
     fun getBook(name: String): LiveData<Book> = getBookMutableLiveDataByName(name)
 
     fun isBookWasRead(book: LiveData<Book>): Boolean = interactor.isBookWasRead(book.value)
 
-    fun addBook(book: LiveData<Book>) = interactor.addBook(book.value)
+    fun addBook(book: LiveData<Book>) {
+
+        Completable.fromAction(object : Action {
+            @Throws(Exception::class)
+            override fun run() {
+                interactor.addBook(book.value)
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
+                override fun onSubscribe(d: Disposable) {
+                 //   interactor.addBook(book.value)
+                }
+                override fun onComplete() {
+                }
+                override fun onError(e: Throwable) {
+                    Log.e("Error" , "data is not available")
+                }
+            })
+    }
 
     fun like(book: LiveData<Book>) = interactor.like(book.value)
 }

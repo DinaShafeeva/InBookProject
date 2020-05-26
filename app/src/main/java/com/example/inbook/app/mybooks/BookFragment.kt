@@ -34,7 +34,6 @@ class BookFragment : Fragment() {
         val book: LiveData<Book> =   viewModel.getBook(arguments?.getString("name") ?: "null")
 
         viewModel.getBook(arguments?.getString("name") ?: "null").observe(viewLifecycleOwner, Observer { it ->
-
             try {
                 tv_name_of_book_book_fragment.text = it.nameOfBook
                 tv_author_book_fragment.text = it.author
@@ -45,7 +44,6 @@ class BookFragment : Fragment() {
                     btn_comment.visibility = View.VISIBLE
                     btn_like.visibility = View.VISIBLE
                 }
-
             }catch (e: IOException) {
                 getActivity()?.let {
                     Snackbar.make(
@@ -57,8 +55,6 @@ class BookFragment : Fragment() {
             }
         })
 
-
-
         btn_have_read.setOnClickListener{
             btn_comment.visibility = View.VISIBLE
             btn_like.visibility = View.VISIBLE
@@ -68,47 +64,6 @@ class BookFragment : Fragment() {
         btn_like.setOnClickListener{
             viewModel.like(book)
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        val book: LiveData<Book> =   viewModel.getBook(arguments?.getString("name") ?: "null")
-
-//        viewModel.getBook(arguments?.getString("name") ?: "null").observe(this, Observer { it ->
-//
-//            try {
-//                tv_name_of_book_book_fragment.text = it.nameOfBook
-//                tv_author_book_fragment.text = it.author
-//                tv_description_book_fragment.text = it.description
-//
-//                if (viewModel.isBookWasRead(book)){
-//                    btn_comment.visibility = View.VISIBLE
-//                    btn_like.visibility = View.VISIBLE
-//                }
-//
-//            }catch (e: IOException) {
-//                getActivity()?.let {
-//                    Snackbar.make(
-//                        it.findViewById(android.R.id.content),
-//                        "Can't find the book",
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
-//                }
-//            }
-//        })
-//
-//
-//
-//        btn_have_read.setOnClickListener{
-//            btn_comment.visibility = View.VISIBLE
-//            btn_like.visibility = View.VISIBLE
-//            viewModel.addBook(book)
-//        }
-//
-//        btn_like.setOnClickListener{
-//            viewModel.like(book)
-//        }
     }
 
     override fun onAttach(context: Context) {
@@ -122,9 +77,10 @@ class BookFragment : Fragment() {
     }
 
     fun getImage(image: ImageView, source: String?) {
+        val newSource = "https" + source?.substring(3)
         Glide
             .with(image.context)
-            .load(source)
+            .load(newSource)
             .into(image)
     }
 

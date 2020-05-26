@@ -6,8 +6,12 @@ import com.example.inbook.data.dao.BookDao
 import com.example.inbook.domain.mybooks.repository.BookRepository
 import com.example.inbook.domain.mybooks.models.Book
 import com.example.inbook.domain.response.BookResponse
+import io.reactivex.Completable
+import io.reactivex.CompletableObserver
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -47,7 +51,22 @@ class BookRepositoryImpl @Inject constructor(
             .subscribe(
                 {
                     it.like = true
-                    bookDao.update(it)
+                    Completable.fromAction(object : Action {
+                        @Throws(Exception::class)
+                        override fun run() {
+                            bookDao.update(it)
+                            Log.d("Update", "successful")
+                        }
+                    }).observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
+                            override fun onSubscribe(d: Disposable) {
+                            }
+                            override fun onComplete() {
+                            }
+                            override fun onError(e: Throwable) {
+                                Log.e("Error" , "data is not available")
+                            }
+                        })
                 },
                 {
                         error -> Log.e("Error" , error.toString())
@@ -66,7 +85,7 @@ class BookRepositoryImpl @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    result= (it.nameOfBook != null)
+                    result= (it.status == 0)
                 },
                 {
                         error -> Log.e("Error" , error.toString())
