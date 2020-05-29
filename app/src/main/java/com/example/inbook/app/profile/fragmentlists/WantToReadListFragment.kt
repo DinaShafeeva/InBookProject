@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inbook.R
 import com.example.inbook.app.profile.vm.WantToReadViewModel
 import com.example.inbook.app.profile.fragmentlists.rv.WRAdapter
+import com.example.inbook.app.profile.vm.ProfileViewModel
 import com.example.inbook.di.AppInjector
 import com.example.inbook.domain.mybooks.models.Book
 import kotlinx.android.synthetic.main.fragment_my_books.*
@@ -38,35 +39,25 @@ class WantToReadListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("FragmentWant", "onView Created")
 
         viewModel.getWantToReadBookList().observe(viewLifecycleOwner, Observer { list ->
-            if (rv_my_books.adapter == null){
+            Log.d("ListWant", list.toString())
+            if (rv_want_to_read.adapter == null){
                 if (list?.size != 0) {
-                    Log.d("ListInFragment", list.toString())
-                    val adapter = WRAdapter(list) { book ->
+                    Log.d("ListInWantToRead", list.toString())
+                    val adapter = WRAdapter { book ->
                         bundle = Bundle()
                         book.nameOfBook.let { bundle.putString("name", it) }
                         Navigation.findNavController(view).navigate(R.id.bookFragment, bundle)
                     }
                     rv_want_to_read.layoutManager = LinearLayoutManager(context)
                     rv_want_to_read.adapter = adapter
-                }else tv_no_books_profile.visibility = View.VISIBLE
+                }else tv_no_books_profile_want.visibility = View.VISIBLE
             }
             (rv_want_to_read.adapter as? WRAdapter)?.submitList(list)
         })
 
-//        list = viewModel.getWantToReadBookList().value
-//        if (list != null) {
-//            if (list?.size != 0) {
-//                adapter = WRAdapter(list!!) { book ->
-//                    bundle = Bundle()
-//                    book.id.let { bundle.putString("name", it) }
-//                    Navigation.findNavController(view).navigate(R.id.bookFragment, bundle)
-//                }
-//                rv_want_to_read.layoutManager = LinearLayoutManager(context)
-//                rv_want_to_read.adapter = adapter
-//            } else tv_no_books_profile.visibility = View.VISIBLE
-//        }
     }
 
     override fun onAttach(context: Context) {
@@ -78,4 +69,9 @@ class WantToReadListFragment : Fragment() {
     fun initViewModel(){
         viewModel = ViewModelProvider(this, viewModelFactory).get(WantToReadViewModel::class.java)
     }
+
+    companion object {
+        fun newInstance(): WantToReadListFragment = WantToReadListFragment()
+    }
+
 }

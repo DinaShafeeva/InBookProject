@@ -26,15 +26,27 @@ class ProfileViewModel( val interactor: ProfileInteractor): ViewModel() {
         return result
     }
 
-//    fun getWantToReadBookList(): LiveData<List<Book>> {
-//        var data: Disposable = interactor.getWantToReadBookList().subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread()).subscribe({
-//                    data -> bookLiveData.value = data
-//                Log.d("Book: " , data.toString())
-//            },
-//                {
-//                        error -> Log.e("Error" , error.toString())
-//                })
-//        return bookLiveData
-//    }
+    fun getWantToReadBookList(): LiveData<List<Book>> {
+        var data: Disposable = interactor.getWantToReadBookList().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    data -> bookLiveData.value = data
+                Log.d("Book: " , data.toString())
+            },
+                {
+                        error -> Log.e("Error" , error.toString())
+                })
+        return bookLiveData
+    }
+
+    fun getLikedList(): LiveData<List<Book>> {
+        var data: Disposable = interactor.getLikedList().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    data -> bookLiveData.value = data
+                Log.d("Book: " , data.toString())
+            },
+                {
+                        error -> Log.e("Error" , error.toString())
+                })
+        return bookLiveData
+    }
 }

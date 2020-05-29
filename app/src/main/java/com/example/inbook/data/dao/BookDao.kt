@@ -32,6 +32,6 @@ interface BookDao {
     @Query("SELECT * FROM book WHERE status = 0")
     fun getReadBooks(): Maybe<List<Book>>
 
-    @Query("SELECT * FROM book WHERE 'like' = 1")
+    @Query("SELECT * FROM book WHERE `like` = 1")
     fun getLikedBooks(): Maybe<List<Book>>
 }

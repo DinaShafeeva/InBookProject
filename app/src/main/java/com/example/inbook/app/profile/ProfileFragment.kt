@@ -16,6 +16,7 @@ import com.example.inbook.app.profile.vp.PagerAdapter
 import com.example.inbook.di.AppInjector
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
@@ -35,16 +36,28 @@ class ProfileFragment : Fragment() {
 //        })
 //
         viewModel.getBooksCount().observe(viewLifecycleOwner, Observer {
-            val booksCount = "$it books was read"
+            val booksCount = "Read books: $it"
             tv_books_count.text = booksCount
         })
 //        val booksCount = viewModel.getBooksCount().value + " books was read"
  //       tv_books_count.text = booksCount
 
-        val viewPager = vp_profile as ViewPager
-        viewPager.adapter = PagerAdapter(context)
 
-        tabs_profile.setupWithViewPager(vp_profile)
+        vp_profile.adapter = PagerAdapter(childFragmentManager, lifecycle)
+
+     //   tabs_profile.setupWithViewPager(viewPager)
+
+        TabLayoutMediator(tabs_profile, vp_profile,
+            TabLayoutMediator.TabConfigurationStrategy { tabs, position ->
+                when (position) {
+                    0 -> {
+                        tabs.text = "Want to read"
+                    }
+                    1 -> {
+                        tabs.text = "Liked books"
+                    }
+                }
+            }).attach()
     }
 
     override fun onCreateView(

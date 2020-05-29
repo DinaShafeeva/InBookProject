@@ -29,7 +29,7 @@ class WantToReadModule {
     @WantToReadScope
     @Provides
     @IntoMap
-    @ViewModelKey(ProfileViewModel::class)
+    @ViewModelKey(WantToReadViewModel::class)
     fun provideWantToReadViewModel(profileInteractor: ProfileInteractor): ViewModel {
         return WantToReadViewModel(
             profileInteractor
