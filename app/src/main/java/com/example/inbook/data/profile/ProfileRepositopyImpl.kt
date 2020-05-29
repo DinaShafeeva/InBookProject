@@ -21,7 +21,7 @@ class ProfileRepositopyImpl@Inject constructor(
 
     override fun getBooksCount(): String {
         var list: List<Book> = ArrayList<Book>()
-        val newBook= bookDao.getAllBooks().subscribeOn(Schedulers.io())
+        val newBook= bookDao.getReadBooks().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
@@ -35,5 +35,9 @@ class ProfileRepositopyImpl@Inject constructor(
 
     override fun getWantToReadBookList(): Maybe<List<Book>> {
         return bookDao.getWantToReadBooks()
+    }
+
+    override fun getLikedList(): Maybe<List<Book>> {
+        return bookDao.getLikedBooks()
     }
 }

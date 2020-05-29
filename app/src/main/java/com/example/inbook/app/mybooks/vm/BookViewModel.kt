@@ -20,6 +20,7 @@ class BookViewModel( val interactor: BookInteractor,
                      val service: BookService): ViewModel() {
 
     private val bookLiveData: MutableLiveData<BookResponse> = MutableLiveData()
+    private val book: MutableLiveData<Book> = MutableLiveData()
     private var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData()
 
     private fun getBookMutableLiveDataByName(name:String): MutableLiveData<Book> {
@@ -27,14 +28,13 @@ class BookViewModel( val interactor: BookInteractor,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     data -> bookLiveData.value = data
                 Log.d("Book: " , data.toString())
-                Log.i("Book: ", data.items.get(0).volumeInfo.description)
 
                 val book: Book = Book(bookLiveData.value?.items?.get(0)?.id ?:"-1",
                     bookLiveData.value?.items?.get(0)?.volumeInfo?.title ?: "name",
                     bookLiveData.value?.items?.get(0)?.volumeInfo?.authors?.get(0) ?: "author",
                     false,
                     bookLiveData.value?.items?.get(0)?.volumeInfo?.description ?: "description",
-                    bookLiveData.value?.items?.get(0)?.volumeInfo?.imageLinks?.smallThumbnail ?: "image")
+                    bookLiveData.value?.items?.get(0)?.volumeInfo?.imageLinks?.thumbnail ?: "image")
                 Log.d("book = ", book.nameOfBook)
                  bookMutableLiveData = MutableLiveData(book)
 
@@ -47,24 +47,37 @@ class BookViewModel( val interactor: BookInteractor,
 
     fun getBook(name: String): LiveData<Book> = getBookMutableLiveDataByName(name)
 
-    fun isBookWasRead(book: LiveData<Book>): Boolean = interactor.isBookWasRead(book.value)
+    fun getBookFromDB(name: String): LiveData<Book>{
+        (interactor.getBookByNameFromDB(name).subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread()).subscribe({
+             bookMutableLiveData.value = it
+         }, {
+                 it.printStackTrace()
+             }))
+
+        if (bookMutableLiveData.value?.nameOfBook != null) {
+            Log.d("ListInVM", bookMutableLiveData.value.toString())
+            return bookMutableLiveData
+        } else return getBook(name)
+    }
+
+    fun isBookWasRead(id: String?): Boolean = interactor.isBookWasRead(id)
 
     fun addBook(book: LiveData<Book>) {
-
         Completable.fromAction(object : Action {
             @Throws(Exception::class)
             override fun run() {
                 interactor.addBook(book.value)
+                Log.d("db", "insert")
             }
         }).observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
                 override fun onSubscribe(d: Disposable) {
-                 //   interactor.addBook(book.value)
                 }
                 override fun onComplete() {
                 }
                 override fun onError(e: Throwable) {
-                    Log.e("Error" , "data is not available")
+                    Log.e("Error" , "data is not available", e)
                 }
             })
     }

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/want_to_read"
+    android:id="@+id/liked_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +13,7 @@
         tools:context=".MainActivity">
 
         <TextView
-            android:id="@+id/tv_no_books_profile"
+            android:id="@+id/tv_no_books_liked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No books in the list :c"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_want_to_read"
+            android:id="@+id/rv_liked"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

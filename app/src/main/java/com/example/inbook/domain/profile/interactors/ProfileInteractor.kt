@@ -8,4 +8,5 @@ interface ProfileInteractor {
     fun getName(): String
     fun getBooksCount(): String
     fun getWantToReadBookList(): Maybe<List<Book>>
+    fun getLikedList(): Maybe<List<Book>>
 }

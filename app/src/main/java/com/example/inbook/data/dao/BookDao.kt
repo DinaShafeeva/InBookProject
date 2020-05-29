@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 @Dao
 interface BookDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: Book)
 
     @Update
@@ -23,6 +23,15 @@ interface BookDao {
     @Query("SELECT * FROM book WHERE id = :id")
     fun getBook(id: String): Maybe<Book>
 
+    @Query("SELECT * FROM book WHERE nameOfBook = :name")
+    fun getBookByName(name: String): Maybe<Book>
+
     @Query("SELECT * FROM book WHERE status = 1")
     fun getWantToReadBooks(): Maybe<List<Book>>
+
+    @Query("SELECT * FROM book WHERE status = 0")
+    fun getReadBooks(): Maybe<List<Book>>
+
+    @Query("SELECT * FROM book WHERE 'like' = 1")
+    fun getLikedBooks(): Maybe<List<Book>>
 }

@@ -21,4 +21,8 @@ constructor(
         return repository.getWantToReadBookList()
     }
 
+    override fun getLikedList(): Maybe<List<Book>> {
+        return repository.getLikedList()
+    }
+
 }

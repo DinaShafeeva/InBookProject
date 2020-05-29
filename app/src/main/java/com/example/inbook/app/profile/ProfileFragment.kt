@@ -7,12 +7,14 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.inbook.R
 import com.example.inbook.app.profile.vm.ProfileViewModel
 import com.example.inbook.app.profile.vp.PagerAdapter
 import com.example.inbook.di.AppInjector
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
@@ -26,8 +28,18 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tv_name_profile.text = viewModel.getName().value
-        tv_books_count.text = viewModel.getBooksCount().value
+       // tv_name_profile.text = viewModel.getName().value
+        getActivity()?.findViewById<BottomNavigationView>(R.id.btv_main)?.visibility = View.VISIBLE
+//        viewModel.getName().observe(viewLifecycleOwner, Observer {
+            tv_name_profile.text = viewModel.getName().value
+//        })
+//
+        viewModel.getBooksCount().observe(viewLifecycleOwner, Observer {
+            val booksCount = "$it books was read"
+            tv_books_count.text = booksCount
+        })
+//        val booksCount = viewModel.getBooksCount().value + " books was read"
+ //       tv_books_count.text = booksCount
 
         val viewPager = vp_profile as ViewPager
         viewPager.adapter = PagerAdapter(context)

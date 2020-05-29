@@ -2,12 +2,14 @@ package com.example.inbook.app.mybooks
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -31,19 +33,41 @@ class BookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val book: LiveData<Book> =   viewModel.getBook(arguments?.getString("name") ?: "null")
 
-        viewModel.getBook(arguments?.getString("name") ?: "null").observe(viewLifecycleOwner, Observer { it ->
+
+            // val book: LiveData<Book> =   viewModel.getBook(arguments?.getString("name") ?: "null")
+        var id: String? = null
+        viewModel.getBookFromDB(arguments?.getString("name") ?: "null").observe(viewLifecycleOwner, Observer { it ->
             try {
                 tv_name_of_book_book_fragment.text = it.nameOfBook
                 tv_author_book_fragment.text = it.author
-                tv_description_book_fragment.text = it.description
+                if (it.description.length<200) {
+                    tv_description_book_fragment.text = it.description
+                } else {
+                    val newDesc = it.description.substring(0,200) + "..."
+                    tv_description_book_fragment.text = newDesc
+                }
                 getImage(iv_image_book_fragment, it.image)
+                id = it.id
 
-                if (viewModel.isBookWasRead(book)){
+                if (viewModel.isBookWasRead(id)){
                     btn_comment.visibility = View.VISIBLE
                     btn_like.visibility = View.VISIBLE
                 }
+
+                btn_have_read.setOnClickListener{ view ->
+                    btn_comment.visibility = View.VISIBLE
+                    btn_like.visibility = View.VISIBLE
+                    viewModel.addBook(MutableLiveData<Book>(it))
+                }
+                btn_like.setOnClickListener{view ->
+                    viewModel.like(MutableLiveData<Book>(it))
+                }
+
+//                if (viewModel.isBookWasRead(book)){
+//                    btn_comment.visibility = View.VISIBLE
+//                    btn_like.visibility = View.VISIBLE
+//                }
             }catch (e: IOException) {
                 getActivity()?.let {
                     Snackbar.make(
@@ -55,15 +79,16 @@ class BookFragment : Fragment() {
             }
         })
 
-        btn_have_read.setOnClickListener{
-            btn_comment.visibility = View.VISIBLE
-            btn_like.visibility = View.VISIBLE
-            viewModel.addBook(book)
-        }
 
-        btn_like.setOnClickListener{
-            viewModel.like(book)
-        }
+//        btn_have_read.setOnClickListener{
+//            btn_comment.visibility = View.VISIBLE
+//            btn_like.visibility = View.VISIBLE
+//            viewModel.addBook(book)
+//        }
+//
+//        btn_like.setOnClickListener{
+//            viewModel.like(book)
+//        }
     }
 
     override fun onAttach(context: Context) {
@@ -77,7 +102,7 @@ class BookFragment : Fragment() {
     }
 
     fun getImage(image: ImageView, source: String?) {
-        val newSource = "https" + source?.substring(3)
+        val newSource = "https" + source?.substring(4)
         Glide
             .with(image.context)
             .load(newSource)

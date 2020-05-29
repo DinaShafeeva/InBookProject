@@ -1,10 +1,7 @@
 package com.example.inbook.data.profile.di.components
 
-import com.example.inbook.app.profile.ProfileFragment
-import com.example.inbook.app.profile.wantread.WantToReadListFragment
-import com.example.inbook.data.profile.di.modules.ProfileModule
+import com.example.inbook.app.profile.fragmentlists.WantToReadListFragment
 import com.example.inbook.data.profile.di.modules.WantToReadModule
-import com.example.inbook.data.profile.di.scopes.ProfileScope
 import com.example.inbook.data.profile.di.scopes.WantToReadScope
 import dagger.Subcomponent
 

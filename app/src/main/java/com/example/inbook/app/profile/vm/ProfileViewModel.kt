@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class ProfileViewModel( val interactor: ProfileInteractor): ViewModel() {
-    lateinit var result: MutableLiveData<String>
+    var result: MutableLiveData<String> = MutableLiveData()
     private val bookLiveData: MutableLiveData<List<Book>> = MutableLiveData()
 
 

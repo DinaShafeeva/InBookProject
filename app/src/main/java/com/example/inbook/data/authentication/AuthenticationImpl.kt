@@ -68,15 +68,11 @@ class AuthenticationImpl @Inject constructor(val context: Context)
         mAuth.signOut()
     }
 
-    fun getCurrentUser(){
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            val name = user.displayName
-            val email = user.email
-            val photoUrl: Uri? = user.photoUrl
-            val emailVerified = user.isEmailVerified
-            val uid = user.uid
+    override fun isAuth(): Boolean {
+        if(mAuth.currentUser != null){
+            return true
         }
+        return false
     }
 
     override fun signInWithGoogle(string: String): String{
@@ -98,7 +94,6 @@ class AuthenticationImpl @Inject constructor(val context: Context)
                 if (task.isSuccessful) {
                     val user: FirebaseUser? = mAuth.currentUser
  //                   myRef.child("user").child(user?.uid.toString()).setValue(user)
-                    print("все зашибись")
                     Log.d(TAG, "signInWithCredential:success")
                     result = "success"
 

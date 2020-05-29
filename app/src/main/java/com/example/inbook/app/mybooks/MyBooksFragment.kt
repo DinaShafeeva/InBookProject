@@ -2,11 +2,13 @@ package com.example.inbook.app.mybooks
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +23,6 @@ import javax.inject.Inject
 
 
 class MyBooksFragment : Fragment() {
-    private var list: List<Book>? = null
-    private lateinit var adapter: BookAdapter
     private lateinit var bundle: Bundle
 
     private lateinit var viewModel: ListBooksViewModel
@@ -41,20 +41,23 @@ class MyBooksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        list = viewModel.getBooks().value
-        if (list != null) {
+        viewModel.getBooks().observe(viewLifecycleOwner, Observer { list ->
+         if (rv_my_books.adapter == null){
             if (list?.size != 0) {
-                adapter = BookAdapter(list!!) { book ->
+                Log.d("ListInFragment", list.toString())
+                val adapter = BookAdapter { book ->
                     bundle = Bundle()
-                    book.id.let { bundle.putString("id", it) }
+                    book.nameOfBook.let { bundle.putString("name", it) }
                     Navigation.findNavController(view).navigate(R.id.bookFragment, bundle)
                 }
                 rv_my_books.layoutManager = LinearLayoutManager(context)
                 rv_my_books.adapter = adapter
-            } else tv_no_books.visibility = View.VISIBLE
-        }
-    }
+            }else tv_no_books.visibility = View.VISIBLE
+            }
+            (rv_my_books.adapter as? BookAdapter)?.submitList(list)
+        })
 
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +68,6 @@ class MyBooksFragment : Fragment() {
     fun initViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(ListBooksViewModel::class.java)
     }
-
 
     companion object {
         fun newInstance(): MyBooksFragment =

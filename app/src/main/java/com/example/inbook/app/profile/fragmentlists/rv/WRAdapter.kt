@@ -1,4 +1,4 @@
-package com.example.inbook.app.profile.wantread.rv
+package com.example.inbook.app.profile.fragmentlists.rv
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

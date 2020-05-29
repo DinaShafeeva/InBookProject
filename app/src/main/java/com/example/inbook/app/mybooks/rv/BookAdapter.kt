@@ -1,12 +1,13 @@
 package com.example.inbook.app.mybooks.rv
 
+import android.os.Bundle
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.inbook.domain.mybooks.models.Book
 
 class BookAdapter(
-    private var dataSource: List<Book>,
     private val clickLambda: (Book) -> Unit
 ) : ListAdapter<Book, BookHolder>(
     Diff
@@ -18,21 +19,28 @@ class BookAdapter(
             clickLambda
         )
 
-    override fun getItemCount(): Int = dataSource.size
+   // override fun getItemCount(): Int = dataSource.size
 
     override fun onBindViewHolder(holder: BookHolder, position: Int) =
-        holder.bind(dataSource[position])
+        holder.bind(getItem(position))
+}
 
-    fun updateList(newList: List<Book>) {
-        androidx.recyclerview.widget.DiffUtil.calculateDiff(
-            DiffUtil(
-                this.dataSource,
-                newList
-            ),
-            true
-        )
-            .dispatchUpdatesTo(this)
-       // this.dataSource.clear()
-        //this.dataSource.addAll(newList)
+object Diff : DiffUtil.ItemCallback<Book>() {
+
+    override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean =
+        oldItem == newItem
+
+    override fun getChangePayload(oldItem: Book, newItem: Book): Any? {
+        val diffBundle = Bundle()
+        if (oldItem.nameOfBook != newItem.nameOfBook) {
+            diffBundle.putString("name", newItem.nameOfBook)
+        }
+        if (oldItem.author != newItem.author) {
+            diffBundle.putString("author", newItem.author)
+        }
+        return if (diffBundle.isEmpty) null else diffBundle
     }
 }

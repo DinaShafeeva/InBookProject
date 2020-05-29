@@ -4,6 +4,7 @@ import com.example.inbook.data.authentication.di.AuthComponent
 import com.example.inbook.di.components.AppComponent
 import com.example.inbook.data.mybooks.di.components.BookComponent
 import com.example.inbook.data.mybooks.di.components.ListBooksComponent
+import com.example.inbook.data.profile.di.components.LikedComponent
 import com.example.inbook.data.profile.di.components.ProfileComponent
 import com.example.inbook.data.profile.di.components.WantToReadComponent
 import com.example.inbook.di.components.DaggerAppComponent
@@ -15,6 +16,7 @@ object AppInjector {
     private var authComponent: AuthComponent? = null
     private var listBooksComponent: ListBooksComponent? = null
     private var wantToReadComponent: WantToReadComponent? = null
+    private var likedComponent: LikedComponent? = null
 
     fun init(app: App) {
         appComponent = DaggerAppComponent.builder()
@@ -69,5 +71,15 @@ object AppInjector {
 
     fun clearWantToReadComponent() {
         wantToReadComponent = null
+    }
+
+    fun plusLikedComponent(): LikedComponent = likedComponent
+        ?: appComponent.likedComponent()
+            .build().also {
+                likedComponent = it
+            }
+
+    fun clearLikedComponent() {
+        likedComponent = null
     }
 }

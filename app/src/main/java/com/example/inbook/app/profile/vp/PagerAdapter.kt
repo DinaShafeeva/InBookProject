@@ -15,7 +15,7 @@ class PagerAdapter(val context: Context?) : PagerAdapter()  {
     override fun getCount(): Int = 2
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layout = LayoutInflater.from(context).inflate(R.layout.fragment_profile, container, false)
+        val layout = LayoutInflater.from(context).inflate(R.layout.fragment_want_to_read_list, container, false)
             //  layout.vp_profile.setImageResource(imageList[position])
         container.addView(layout, 0)
         return layout
