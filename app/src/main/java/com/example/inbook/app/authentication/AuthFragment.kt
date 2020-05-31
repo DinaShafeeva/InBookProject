@@ -52,7 +52,6 @@ class AuthFragment : Fragment() {
                 Log.d("IsAuth", "true")
             } else  Log.d("IsAuth", "false")
 
-
         btn_register.setOnClickListener { x ->
             if (
                 viewModel?.createAccount(et_email.text.toString(), et_password.text.toString())
@@ -98,14 +97,8 @@ class AuthFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.profileFragment)
         }
         }
-//        getActivity()?.let {
-//            Snackbar.make(
-//                it.findViewById(android.R.id.content),
-//                "Failed",
-//                Snackbar.LENGTH_LONG
-//            ).show()
-//        }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         AppInjector.clearAuthComponent()

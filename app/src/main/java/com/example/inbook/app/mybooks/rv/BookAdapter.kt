@@ -18,8 +18,6 @@ class BookAdapter(
             clickLambda
         )
 
-   // override fun getItemCount(): Int = dataSource.size
-
     override fun onBindViewHolder(holder: BookHolder, position: Int) =
         holder.bind(getItem(position))
 }

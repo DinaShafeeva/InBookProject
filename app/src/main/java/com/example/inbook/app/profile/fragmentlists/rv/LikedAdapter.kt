@@ -17,8 +17,6 @@ class LikedAdapter  (
             clickLambda
         )
 
-    //   override fun getItemCount(): Int = dataSource.size
-
     override fun onBindViewHolder(holder: LikedHolder, position: Int) =
         holder.bind(getItem(position))
 }

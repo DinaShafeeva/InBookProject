@@ -13,7 +13,6 @@ class ProfileRepositopyImpl@Inject constructor(
     private val bookDao: BookDao
 ): ProfileRepository {
 
-
     override fun getBooksCount(): String {
         var list: List<Book> = ArrayList<Book>()
         val newBook= bookDao.getReadBooks().subscribeOn(Schedulers.io())

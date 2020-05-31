@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.inbook.domain.mybooks.interactor.BookInteractor
 import com.example.inbook.domain.models.Book
-import com.example.inbook.domain.mybooks.services.BookService
 import com.example.inbook.domain.response.BookResponse
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
@@ -16,9 +15,7 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 
 
-class BookViewModel( val interactor: BookInteractor,
-                     val service: BookService): ViewModel() {
-
+class BookViewModel( val interactor: BookInteractor): ViewModel() {
     private val bookLiveData: MutableLiveData<BookResponse> = MutableLiveData()
     private var book: MutableLiveData<Book> = MutableLiveData()
     private var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData()
@@ -37,7 +34,6 @@ class BookViewModel( val interactor: BookInteractor,
                     bookLiveData.value?.items?.get(0)?.volumeInfo?.imageLinks?.thumbnail ?: "image")
                 Log.d("book = ", book.nameOfBook)
                  bookMutableLiveData = MutableLiveData(book)
-
             },
                 {
                         error -> Log.e("Error" , error.toString())
@@ -48,15 +44,13 @@ class BookViewModel( val interactor: BookInteractor,
     fun getBook(name: String): LiveData<Book> = getBookMutableLiveDataByName(name)
 
     fun getBookFromDB(name: String): LiveData<Book>{
-     //   book.value?.nameOfBook = "null"
         (interactor.getBookByNameFromDB(name).subscribeOn(Schedulers.io())
              .observeOn(AndroidSchedulers.mainThread()).subscribe({
              book.value = it
          }, {
                  it.printStackTrace()
              }))
-
-        if (!book.value?.nameOfBook.equals(null)) {
+        if (book.value?.nameOfBook != null) {
             Log.d("ListInVM", book.value.toString())
             return book
         } else return getBook(name)

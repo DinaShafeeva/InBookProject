@@ -20,7 +20,6 @@ import dagger.Component
 @AppScope
 @Component(modules = [AppModule::class, ApiFactoryModule::class, ViewModelModule::class, DatabaseModule::class])
 interface AppComponent {
-
     fun bookComponent(): BookComponent.Builder
     fun profileComponent(): ProfileComponent.Builder
     fun authComponent(): AuthComponent.Builder

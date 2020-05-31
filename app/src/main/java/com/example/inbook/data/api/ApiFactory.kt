@@ -36,9 +36,7 @@ class ApiFactory {
             .build()
     }
 
-
     val  googleBooksApi: GoogleBooksApi by lazy {
         retrofit.create(GoogleBooksApi::class.java)
     }
-
 }

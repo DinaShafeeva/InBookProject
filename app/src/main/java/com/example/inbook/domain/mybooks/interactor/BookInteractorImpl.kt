@@ -7,14 +7,9 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 import javax.inject.Inject
 
-class BookInteractorImpl @Inject
-constructor(
+class BookInteractorImpl @Inject constructor(
     private val repository: BookRepository
 ): BookInteractor {
-//    override fun getBook(id: Int): Single<BookResponse> {
-//        return repository.getBook(id)
-//    }
-
     override fun getBookByName(name: String): Single<BookResponse> {
         return repository.getBookByName(name)
     }

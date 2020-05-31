@@ -69,11 +69,6 @@ class ProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-//    fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        activity?.getMenuInflater()?.inflate(R.menu.tb_profile, menu)
-//        return true
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem):Boolean {
         Log.w("SignOut", "success");
         viewModel.signOut()

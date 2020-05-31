@@ -23,7 +23,6 @@ class QuoteViewModel(val interactor: BookInteractor): ViewModel() {
             }, {
                 it.printStackTrace()
             }))
-
             return book
     }
 

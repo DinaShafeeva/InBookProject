@@ -6,7 +6,6 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 
 interface BookInteractor{
-   // fun getBook(id: Int): Single<BookResponse>
     fun getBookByName(name:String): Single<BookResponse>
     fun getBooks(): Maybe<List<Book>>
     fun getReadBooks(): Maybe<List<Book>>

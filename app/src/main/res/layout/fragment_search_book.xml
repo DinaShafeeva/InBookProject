@@ -7,28 +7,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".app.search.SearchBookFragment">
 
-    <TextView
-        android:id="@+id/tv_name_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_author_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_search" />
-
-    <TextView
-        android:id="@+id/tv_description_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_author_search" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

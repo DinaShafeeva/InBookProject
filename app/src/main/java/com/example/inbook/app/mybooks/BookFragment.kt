@@ -46,15 +46,10 @@ class BookFragment : Fragment() {
                 getImage(iv_image_book_fragment, it.image)
                 id = it.id
 
-//                if(it.status==0){
-//                    btn_like.visibility = View.VISIBLE
-//                    btn_write_quote.visibility = View.VISIBLE
-//                }
                 if (viewModel.isBookWasRead(id)){
                     btn_like.visibility = View.VISIBLE
                     btn_write_quote.visibility = View.VISIBLE
                 }
-
                 btn_have_read.setOnClickListener{ view ->
                     btn_like.visibility = View.VISIBLE
                     btn_write_quote.visibility = View.VISIBLE
@@ -71,11 +66,6 @@ class BookFragment : Fragment() {
                     bundle.putString("name", it.nameOfBook)
                     Navigation.findNavController(view).navigate(R.id.quoteFragment, bundle)
                 }
-
-//                if (viewModel.isBookWasRead(book)){
-//                    btn_comment.visibility = View.VISIBLE
-//                    btn_like.visibility = View.VISIBLE
-//                }
             }catch (e: IOException) {
                 getActivity()?.let {
                     Snackbar.make(
@@ -86,7 +76,6 @@ class BookFragment : Fragment() {
                 }
             }
         })
-
     }
 
     override fun onAttach(context: Context) {

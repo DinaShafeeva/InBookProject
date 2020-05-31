@@ -9,8 +9,6 @@ class ProfileInteractorImpl @Inject
 constructor(
     private val repository: ProfileRepository
 ): ProfileInteractor {
-
-
     override fun getBooksCount(): String {
         return repository.getBooksCount()
     }
@@ -30,5 +28,4 @@ constructor(
     override fun getReadBooksList(): Maybe<List<Book>> {
         return repository.getReadBooksList()
     }
-
 }

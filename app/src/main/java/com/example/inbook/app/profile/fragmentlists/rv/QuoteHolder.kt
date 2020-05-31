@@ -17,11 +17,9 @@ class QuoteHolder (
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(quote: Quote) {
-
         Log.d("Quote", quote.toString())
         tv_name_of_book_quote.text = quote.name
         tv_quote.text = quote.text
-
         itemView.setOnClickListener {
             clickLambda(quote)
         }

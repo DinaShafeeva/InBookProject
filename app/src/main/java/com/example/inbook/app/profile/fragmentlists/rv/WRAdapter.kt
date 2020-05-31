@@ -17,8 +17,6 @@ class WRAdapter (
             clickLambda
         )
 
- //   override fun getItemCount(): Int = dataSource.size
-
     override fun onBindViewHolder(holder: WRHolder, position: Int) =
         holder.bind(getItem(position))
 }

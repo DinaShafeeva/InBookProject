@@ -24,11 +24,6 @@ class SearchBookFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        AppInjector.plusBookComponent().inject(this)
-//        initViewModel()
-//    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AppInjector.plusBookComponent().inject(this)
@@ -40,9 +35,7 @@ class SearchBookFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-      //  super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.tb_search, menu);
-        //activity?.getMenuInflater()?.inflate(R.menu.tb_search, menu)
         val searchItem: MenuItem = menu.findItem(R.id.search)
         val searchView: SearchView = searchItem.actionView as SearchView
         Log.e("MENU", "open")
@@ -52,7 +45,6 @@ class SearchBookFragment : Fragment() {
                 queryTextSubmit(query)
                 return true
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
@@ -63,14 +55,9 @@ class SearchBookFragment : Fragment() {
     fun queryTextSubmit(query: String): Boolean {
          viewModel?.getBook(query)?.observe(this, Observer {
             try {
-//                tv_name_search.text = it.nameOfBook
-//                tv_author_search.text = it.author
-//                tv_description_search.text = it.description
-
                 bundle = Bundle()
                 bundle.putString("name", it.nameOfBook)
                 view?.let { it1 -> Navigation.findNavController(it1).navigate(R.id.bookFragment, bundle) }
-
             } catch (e: IOException) {
                 getActivity()?.let {
                     Snackbar.make(
@@ -81,11 +68,8 @@ class SearchBookFragment : Fragment() {
                 }
             }
         })
-
-        return false;
+        return false
     }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,15 +81,11 @@ class SearchBookFragment : Fragment() {
 
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        setHasOptionsMenu(true)
-//        super.onCreate(savedInstanceState)
-//    }
-
     override fun onDestroy() {
         super.onDestroy()
         AppInjector.clearBookComponent()
     }
+
     companion object {
         fun newInstance(): SearchBookFragment =
             SearchBookFragment()

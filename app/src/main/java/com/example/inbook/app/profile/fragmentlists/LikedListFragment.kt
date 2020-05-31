@@ -73,5 +73,4 @@ class LikedListFragment : Fragment() {
     companion object {
         fun newInstance(): LikedListFragment = LikedListFragment()
     }
-
 }

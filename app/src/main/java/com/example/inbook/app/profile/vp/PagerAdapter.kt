@@ -16,6 +16,5 @@ class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
         0 -> WantToReadListFragment.newInstance()
         1 -> LikedListFragment.newInstance()
         else -> QuotesListFragment.newInstance()
-
     }
 }

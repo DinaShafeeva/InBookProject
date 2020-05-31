@@ -19,10 +19,10 @@ class QuoteAdapter  (
             clickLambda
         )
 
-
     override fun onBindViewHolder(holder: QuoteHolder, position: Int) =
         holder.bind(getItem(position))
 }
+
 object Diff : DiffUtil.ItemCallback<Quote>() {
 
     override fun areItemsTheSame(oldItem: Quote, newItem: Quote): Boolean =

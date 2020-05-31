@@ -16,6 +16,7 @@ class DatabaseModule {
     fun provideAppDatabase(context: Context): DataBase {
         return DataBase.get(context)
     }
+
     @Provides
     @AppScope
     fun provideUserDao(appDatabase: DataBase): BookDao {

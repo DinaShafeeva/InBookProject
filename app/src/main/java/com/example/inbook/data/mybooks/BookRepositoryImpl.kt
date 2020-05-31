@@ -22,14 +22,6 @@ class BookRepositoryImpl @Inject constructor(
 ): BookRepository {
     lateinit var book : Single<BookResponse>
 
-    private val disposables = CompositeDisposable()
-    private var booksMutableLiveData = MutableLiveData<List<Book>>()
-    val booksLiveData: LiveData<List<Book>> = booksMutableLiveData
-
-//    override fun getBook(id: Int): Single<BookResponse> {
-//        return book
-//    }
-
     override fun getBookByName(name: String): Single<BookResponse> {
        return apiService.searchBook(name)
     }
@@ -123,5 +115,4 @@ class BookRepositoryImpl @Inject constructor(
                         error -> Log.e("Error" , error.toString())
                 })
     }
-
 }

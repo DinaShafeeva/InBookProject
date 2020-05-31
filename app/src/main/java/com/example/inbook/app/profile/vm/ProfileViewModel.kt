@@ -16,7 +16,6 @@ class ProfileViewModel( val interactor: ProfileInteractor,
     var readCount: MutableLiveData<String> = MutableLiveData()
     var likedCount: MutableLiveData<String> = MutableLiveData()
 
-
     fun getBooksCount(): LiveData<String> {
         var data: Disposable = interactor.getReadBooksList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
@@ -44,14 +43,4 @@ class ProfileViewModel( val interactor: ProfileInteractor,
     fun signOut() {
         authentication.signOut()
     }
-
-//    fun getBooksCount(): LiveData<String> {
-//        result.value = interactor.getBooksCount()
-//        return result
-//    }
-
-//    fun getLikedBooksCount(): LiveData<String> {
-//        result.value = interactor.getLikedBooksCount()
-//        return result
-//    }
 }

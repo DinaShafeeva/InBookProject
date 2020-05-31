@@ -15,8 +15,4 @@ class AppModule() {
     @AppScope
     @Provides
     fun provideContext(application: App): Context = application.applicationContext
-
-//    @AppScope
-//    @Provides
-//    fun provideApp(application: App): Application = application
 }

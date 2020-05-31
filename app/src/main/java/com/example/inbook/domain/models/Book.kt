@@ -16,6 +16,5 @@ data class Book (
     var image: String,
     var status: Int = 0,
     //0 - have read, 1 - want to read
-    //@TypeConverters(QuotesConverter::class)
     var quotes: ArrayList<String> = ArrayList<String>()
 )

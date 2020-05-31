@@ -8,5 +8,4 @@ interface Authentication {
     fun signOut()
     fun isAuth(): Boolean
     fun getName(): String
-
 }

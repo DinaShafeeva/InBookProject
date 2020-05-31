@@ -15,11 +15,9 @@ class BookHolder(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(book: Book) {
-
         tv_name_of_book.text = book.nameOfBook
         tv_author.text = book.author
         tv_description.text = book.description
-
         itemView.setOnClickListener {
             clickLambda(book)
         }

@@ -55,7 +55,6 @@ class WantToReadListFragment : Fragment() {
             }
             (rv_want_to_read.adapter as? WRAdapter)?.submitList(list)
         })
-
     }
 
     override fun onAttach(context: Context) {
@@ -71,5 +70,4 @@ class WantToReadListFragment : Fragment() {
     companion object {
         fun newInstance(): WantToReadListFragment = WantToReadListFragment()
     }
-
 }

@@ -15,10 +15,8 @@ class LikedHolder(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(book: Book) {
-
         tv_name_of_book_liked.text = book.nameOfBook
         tv_author_liked.text = book.author
-
         itemView.setOnClickListener {
             clickLambda(book)
         }

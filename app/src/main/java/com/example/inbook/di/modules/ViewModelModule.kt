@@ -12,21 +12,6 @@ import dagger.multibindings.IntoMap
 
 @Module
 interface ViewModelModule  {
-
-//    @IntoMap
-//    @Binds
-//    @ViewModelKey(BookViewModel::class)
-//    fun bindBookViewModel(
-//        bookViewModel: BookViewModel
-//    ): ViewModel
-//
-//    @IntoMap
-//    @Binds
-//    @ViewModelKey(AuthViewModel::class)
-//    fun bindAuthViewModel(
-//        authViewModel: AuthViewModel
-//    ): ViewModel
-
     @Binds
      fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

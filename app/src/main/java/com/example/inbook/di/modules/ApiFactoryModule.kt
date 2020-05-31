@@ -8,7 +8,6 @@ import dagger.Provides
 
 @Module
 class ApiFactoryModule {
-
     @AppScope
     @Provides
     fun provideApiFactory() = ApiFactory()
@@ -16,5 +15,4 @@ class ApiFactoryModule {
     @AppScope
     @Provides
     fun provideCharacterApiService(apiFactory: ApiFactory): GoogleBooksApi = apiFactory.googleBooksApi
-
 }

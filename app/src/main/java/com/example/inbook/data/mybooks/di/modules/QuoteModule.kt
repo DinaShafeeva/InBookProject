@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.example.inbook.app.mybooks.vm.BookViewModel
 import com.example.inbook.app.mybooks.vm.QuoteViewModel
 import com.example.inbook.data.mybooks.BookRepositoryImpl
-import com.example.inbook.data.mybooks.BookServiceImpl
 import com.example.inbook.data.mybooks.di.scopes.BookScope
 import com.example.inbook.data.mybooks.di.scopes.QuoteScope
 import com.example.inbook.di.ViewModelKey
@@ -26,7 +25,6 @@ class QuoteModule {
     @Provides
     fun provideBookRepository(bookRepository: BookRepositoryImpl)
             : BookRepository = bookRepository
-
 
     @QuoteScope
     @Provides

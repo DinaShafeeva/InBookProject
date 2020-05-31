@@ -21,12 +21,10 @@ import javax.inject.Inject
 
 class MyBooksFragment : Fragment() {
     private lateinit var bundle: Bundle
-
     private lateinit var viewModel: ListBooksViewModel
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +51,6 @@ class MyBooksFragment : Fragment() {
             }
             (rv_my_books.adapter as? BookAdapter)?.submitList(list)
         })
-
     }
 
     override fun onAttach(context: Context) {
