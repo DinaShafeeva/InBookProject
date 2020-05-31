@@ -6,14 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import com.example.inbook.data.api.GoogleBooksApi
 import com.example.inbook.data.dao.BookDao
 import com.example.inbook.domain.mybooks.repository.BookRepository
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import com.example.inbook.domain.response.BookResponse
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Action
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -92,4 +91,37 @@ class BookRepositoryImpl @Inject constructor(
         return bookDao.getBookByName(name)
 
     }
+
+    override fun getReadBooks(): Maybe<List<Book>> {
+        return bookDao.getReadBooks()
+    }
+
+    override fun addQuote(text: String, nameOfBook: String) {
+        val newBook = bookDao.getBookByName(nameOfBook).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    it.quotes.add(text)
+                    Completable.fromAction(object : Action {
+                        @Throws(Exception::class)
+                        override fun run() {
+                            bookDao.update(it)
+                            Log.d("db", "successful added quote")
+                        }
+                    }).observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
+                            override fun onSubscribe(d: Disposable) {
+                            }
+                            override fun onComplete() {
+                            }
+                            override fun onError(e: Throwable) {
+                                Log.e("Error" , "data is not available")
+                            }
+                        })
+                },
+                {
+                        error -> Log.e("Error" , error.toString())
+                })
+    }
+
 }

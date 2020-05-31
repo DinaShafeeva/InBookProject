@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inbook.R
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.book_liked_item.*
-import kotlinx.android.synthetic.main.book_profile_item.*
 
 class LikedHolder(
     override val containerView: View,

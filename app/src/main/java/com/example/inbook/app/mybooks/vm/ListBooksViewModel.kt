@@ -4,10 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.inbook.data.dao.BookDao
 import com.example.inbook.domain.mybooks.interactor.BookInteractor
-import com.example.inbook.domain.mybooks.models.Book
-import com.example.inbook.domain.mybooks.services.BookService
+import com.example.inbook.domain.models.Book
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -15,7 +13,7 @@ class ListBooksViewModel(val interactor: BookInteractor): ViewModel() {
     var books: MutableLiveData<List<Book>> = MutableLiveData()
 
     fun getBooks(): LiveData<List<Book>> {
-         (interactor.getBooks().subscribeOn(Schedulers.io())
+         (interactor.getReadBooks().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                 books.value = it
         }, {

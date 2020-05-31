@@ -30,4 +30,9 @@
         android:name="com.example.inbook.app.authentication.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" />
+    <fragment
+        android:id="@+id/quoteFragment"
+        android:name="com.example.inbook.app.mybooks.QuoteFragment"
+        android:label="fragment_quote"
+        tools:layout="@layout/fragment_quote" />
 </navigation>

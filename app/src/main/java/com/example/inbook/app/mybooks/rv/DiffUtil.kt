@@ -1,8 +1,7 @@
 package com.example.inbook.app.mybooks.rv
 
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 
 class DiffUtil (private val oldList: List<Book>, private val newList: List<Book>) :
     DiffUtil.Callback() {

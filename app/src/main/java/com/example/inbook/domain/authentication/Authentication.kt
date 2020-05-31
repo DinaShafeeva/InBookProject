@@ -7,5 +7,6 @@ interface Authentication {
     fun signInWithGoogle(string: String): String
     fun signOut()
     fun isAuth(): Boolean
+    fun getName(): String
 
 }

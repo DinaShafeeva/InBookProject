@@ -3,10 +3,9 @@ package com.example.inbook.app.mybooks.rv
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inbook.R
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.book_item.*
 

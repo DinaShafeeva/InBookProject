@@ -2,22 +2,20 @@ package com.example.inbook.app.mybooks
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.inbook.R
 import com.example.inbook.app.mybooks.vm.BookViewModel
-import com.example.inbook.data.mybooks.BookServiceImpl
 import com.example.inbook.di.AppInjector
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_book.*
 import java.io.IOException
@@ -26,6 +24,7 @@ import javax.inject.Inject
 
 class BookFragment : Fragment() {
     private lateinit var viewModel: BookViewModel
+    private lateinit var bundle: Bundle
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -33,9 +32,6 @@ class BookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-            // val book: LiveData<Book> =   viewModel.getBook(arguments?.getString("name") ?: "null")
         var id: String? = null
         viewModel.getBookFromDB(arguments?.getString("name") ?: "null").observe(viewLifecycleOwner, Observer { it ->
             try {
@@ -50,18 +46,30 @@ class BookFragment : Fragment() {
                 getImage(iv_image_book_fragment, it.image)
                 id = it.id
 
+//                if(it.status==0){
+//                    btn_like.visibility = View.VISIBLE
+//                    btn_write_quote.visibility = View.VISIBLE
+//                }
                 if (viewModel.isBookWasRead(id)){
-                    btn_comment.visibility = View.VISIBLE
                     btn_like.visibility = View.VISIBLE
+                    btn_write_quote.visibility = View.VISIBLE
                 }
 
                 btn_have_read.setOnClickListener{ view ->
-                    btn_comment.visibility = View.VISIBLE
                     btn_like.visibility = View.VISIBLE
+                    btn_write_quote.visibility = View.VISIBLE
                     viewModel.addBook(MutableLiveData<Book>(it))
                 }
                 btn_like.setOnClickListener{view ->
                     viewModel.like(MutableLiveData<Book>(it))
+                }
+                btn_want_to_read.setOnClickListener{view ->
+                    viewModel.wantToRead(MutableLiveData<Book>(it))
+                }
+                btn_write_quote.setOnClickListener{view ->
+                    bundle = Bundle()
+                    bundle.putString("name", it.nameOfBook)
+                    Navigation.findNavController(view).navigate(R.id.quoteFragment, bundle)
                 }
 
 //                if (viewModel.isBookWasRead(book)){
@@ -79,16 +87,6 @@ class BookFragment : Fragment() {
             }
         })
 
-
-//        btn_have_read.setOnClickListener{
-//            btn_comment.visibility = View.VISIBLE
-//            btn_like.visibility = View.VISIBLE
-//            viewModel.addBook(book)
-//        }
-//
-//        btn_like.setOnClickListener{
-//            viewModel.like(book)
-//        }
     }
 
     override fun onAttach(context: Context) {

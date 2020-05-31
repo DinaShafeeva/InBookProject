@@ -2,7 +2,7 @@ package com.example.inbook.data.mybooks
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import com.example.inbook.domain.mybooks.services.BookService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*

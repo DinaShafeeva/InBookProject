@@ -7,17 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inbook.R
 import com.example.inbook.app.mybooks.rv.BookAdapter
-import com.example.inbook.app.mybooks.vm.BookViewModel
 import com.example.inbook.app.mybooks.vm.ListBooksViewModel
 import com.example.inbook.di.AppInjector
-import com.example.inbook.domain.mybooks.models.Book
 import kotlinx.android.synthetic.main.fragment_my_books.*
 import javax.inject.Inject
 

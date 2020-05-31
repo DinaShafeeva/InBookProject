@@ -6,13 +6,14 @@
         android:iconTint="#FFFFFF"
         android:title="Want to read" />
     <item
-        android:id="@+id/btn_quotes"
+        android:id="@+id/btn_liked"
         android:icon="@drawable/icn_quotes"
         android:iconTint="#FFFFFF"
         android:title="Liked" />
     <item
-        android:id="@+id/btn_comments"
-        android:icon="@drawable/icn_comments"
+        android:id="@+id/btn_quotes"
+        android:icon="@drawable/icn_quotes"
         android:iconTint="#FFFFFF"
-        android:title="@string/comments" />
+        android:title="Quotes" />
+
 </menu>

@@ -1,11 +1,9 @@
 package com.example.inbook.domain.mybooks.interactor
 
-import androidx.databinding.ObservableList
 import com.example.inbook.domain.mybooks.repository.BookRepository
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import com.example.inbook.domain.response.BookResponse
 import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -25,6 +23,10 @@ constructor(
         return repository.getBooks()
     }
 
+    override fun getReadBooks(): Maybe<List<Book>> {
+        return repository.getReadBooks()
+    }
+
     override fun like(value: Book?) {
         repository.like(value)
     }
@@ -39,5 +41,9 @@ constructor(
 
     override fun getBookByNameFromDB(name: String): Maybe<Book> {
         return repository.getBookByNameFromDB(name)
+    }
+
+    override fun addQuote(text: String, nameOfBook: String) {
+        return repository.addQuote(text, nameOfBook)
     }
 }

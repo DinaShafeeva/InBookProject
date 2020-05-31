@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.inbook.domain.mybooks.interactor.BookInteractor
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import com.example.inbook.domain.mybooks.services.BookService
 import com.example.inbook.domain.response.BookResponse
 import io.reactivex.Completable
@@ -20,7 +20,7 @@ class BookViewModel( val interactor: BookInteractor,
                      val service: BookService): ViewModel() {
 
     private val bookLiveData: MutableLiveData<BookResponse> = MutableLiveData()
-    private val book: MutableLiveData<Book> = MutableLiveData()
+    private var book: MutableLiveData<Book> = MutableLiveData()
     private var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData()
 
     private fun getBookMutableLiveDataByName(name:String): MutableLiveData<Book> {
@@ -48,16 +48,17 @@ class BookViewModel( val interactor: BookInteractor,
     fun getBook(name: String): LiveData<Book> = getBookMutableLiveDataByName(name)
 
     fun getBookFromDB(name: String): LiveData<Book>{
+     //   book.value?.nameOfBook = "null"
         (interactor.getBookByNameFromDB(name).subscribeOn(Schedulers.io())
              .observeOn(AndroidSchedulers.mainThread()).subscribe({
-             bookMutableLiveData.value = it
+             book.value = it
          }, {
                  it.printStackTrace()
              }))
 
-        if (bookMutableLiveData.value?.nameOfBook != null) {
-            Log.d("ListInVM", bookMutableLiveData.value.toString())
-            return bookMutableLiveData
+        if (!book.value?.nameOfBook.equals(null)) {
+            Log.d("ListInVM", book.value.toString())
+            return book
         } else return getBook(name)
     }
 
@@ -83,4 +84,24 @@ class BookViewModel( val interactor: BookInteractor,
     }
 
     fun like(book: LiveData<Book>) = interactor.like(book.value)
+
+    fun wantToRead(book: MutableLiveData<Book>){
+        Completable.fromAction(object : Action {
+            @Throws(Exception::class)
+            override fun run() {
+                book.value?.status = 1
+                interactor.addBook(book.value)
+                Log.d("db", "insertToWantToRead")
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
+                override fun onSubscribe(d: Disposable) {
+                }
+                override fun onComplete() {
+                }
+                override fun onError(e: Throwable) {
+                    Log.e("Error" , "data is not available", e)
+                }
+            })
+    }
 }

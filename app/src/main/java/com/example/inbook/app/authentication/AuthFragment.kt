@@ -25,11 +25,6 @@ class AuthFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var viewModel: AuthViewModel? = null
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        AppInjector.plusAuthComponent().inject(this)
-//        initViewModel()
-//    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AppInjector.plusAuthComponent().inject(this)
@@ -58,7 +53,7 @@ class AuthFragment : Fragment() {
             } else  Log.d("IsAuth", "false")
 
 
-        btn_register.setOnClickListener() { x ->
+        btn_register.setOnClickListener { x ->
             if (
                 viewModel?.createAccount(et_email.text.toString(), et_password.text.toString())
                     .equals("success")
@@ -73,7 +68,7 @@ class AuthFragment : Fragment() {
                  Navigation.findNavController(view).navigate(R.id.profileFragment)
             }
         }
-        btn_auth.setOnClickListener() { x ->
+        btn_auth.setOnClickListener { x ->
             if (
                 viewModel?.signIn(et_email.text.toString(), et_password.text.toString())
                     .equals("success")
@@ -88,7 +83,7 @@ class AuthFragment : Fragment() {
                 Navigation.findNavController(view).navigate(R.id.profileFragment)
             }
         }
-        btn_google_sign_in.setOnClickListener() { x ->
+        btn_google_sign_in.setOnClickListener { x ->
             if (
                 viewModel?.signInWithGoogle(getString(R.string.default_web_client_id))
                     .equals("success")

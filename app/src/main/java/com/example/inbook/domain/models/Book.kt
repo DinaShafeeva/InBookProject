@@ -1,7 +1,8 @@
-package com.example.inbook.domain.mybooks.models
+package com.example.inbook.domain.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 
 @Entity
 data class Book (
@@ -13,6 +14,8 @@ data class Book (
     // true - was liked, false - wasn't liked
     var description: String,
     var image: String,
-    var status: Int = 0
+    var status: Int = 0,
     //0 - have read, 1 - want to read
+    //@TypeConverters(QuotesConverter::class)
+    var quotes: ArrayList<String> = ArrayList<String>()
 )

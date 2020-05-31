@@ -4,8 +4,10 @@ import com.example.inbook.data.authentication.di.AuthComponent
 import com.example.inbook.data.dao.di.DatabaseModule
 import com.example.inbook.data.mybooks.di.components.BookComponent
 import com.example.inbook.data.mybooks.di.components.ListBooksComponent
+import com.example.inbook.data.mybooks.di.components.QuoteComponent
 import com.example.inbook.data.profile.di.components.LikedComponent
 import com.example.inbook.data.profile.di.components.ProfileComponent
+import com.example.inbook.data.profile.di.components.QuoteListComponent
 import com.example.inbook.data.profile.di.components.WantToReadComponent
 import com.example.inbook.di.App
 import com.example.inbook.di.modules.ApiFactoryModule
@@ -25,6 +27,8 @@ interface AppComponent {
     fun listBooksComponent(): ListBooksComponent.Builder
     fun wantToReadComponent(): WantToReadComponent.Builder
     fun likedComponent(): LikedComponent.Builder
+    fun quoteComponent(): QuoteComponent.Builder
+    fun quoteListComponent(): QuoteListComponent.Builder
 
     @Component.Builder
     interface Builder {

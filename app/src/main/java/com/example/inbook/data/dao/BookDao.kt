@@ -1,10 +1,8 @@
 package com.example.inbook.data.dao
 
 import androidx.room.*
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 import io.reactivex.Maybe
-import io.reactivex.Observable
-import io.reactivex.Single
 
 @Dao
 interface BookDao {

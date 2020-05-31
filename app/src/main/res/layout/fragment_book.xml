@@ -74,28 +74,15 @@
         app:layout_constraintStart_toEndOf="@id/btn_have_read"
         app:layout_constraintTop_toBottomOf="@+id/tv_description_book_fragment" />
 
-
-
-    <Button
-        android:id="@+id/btn_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Comment"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_write_quote"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/btn_like"
-        app:layout_constraintTop_toBottomOf="@+id/btn_have_read" />
-
     <Button
         android:id="@+id/btn_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Like"
+        android:background="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_comment"
+        app:layout_constraintEnd_toStartOf="@id/btn_write_quote"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_have_read"/>
@@ -104,12 +91,13 @@
         android:id="@+id/btn_write_quote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Like"
+        android:text="Make quote"
+        android:background="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/btn_comment"
+        app:layout_constraintStart_toEndOf="@id/btn_like"
         app:layout_constraintTop_toBottomOf="@+id/btn_have_read"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,10 +2,9 @@ package com.example.inbook.app.mybooks.rv
 
 import android.os.Bundle
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 
 class BookAdapter(
     private val clickLambda: (Book) -> Unit

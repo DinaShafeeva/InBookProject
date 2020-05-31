@@ -12,9 +12,7 @@ import androidx.navigation.Navigation
 import com.example.inbook.R
 import com.example.inbook.app.mybooks.vm.BookViewModel
 import com.example.inbook.di.AppInjector
-import com.example.inbook.domain.mybooks.models.Book
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_search_book.*
 import java.io.IOException
 import javax.inject.Inject
 

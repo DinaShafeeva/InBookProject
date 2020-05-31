@@ -4,5 +4,5 @@
         android:id="@+id/btn_tools"
         android:icon="@drawable/icn_tools"
         android:iconTint="#FFFFFF"
-        android:title="@string/tools" />
+        android:title="Sign out" />
 </menu>

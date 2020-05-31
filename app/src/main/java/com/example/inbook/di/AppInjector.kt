@@ -4,8 +4,10 @@ import com.example.inbook.data.authentication.di.AuthComponent
 import com.example.inbook.di.components.AppComponent
 import com.example.inbook.data.mybooks.di.components.BookComponent
 import com.example.inbook.data.mybooks.di.components.ListBooksComponent
+import com.example.inbook.data.mybooks.di.components.QuoteComponent
 import com.example.inbook.data.profile.di.components.LikedComponent
 import com.example.inbook.data.profile.di.components.ProfileComponent
+import com.example.inbook.data.profile.di.components.QuoteListComponent
 import com.example.inbook.data.profile.di.components.WantToReadComponent
 import com.example.inbook.di.components.DaggerAppComponent
 
@@ -17,6 +19,8 @@ object AppInjector {
     private var listBooksComponent: ListBooksComponent? = null
     private var wantToReadComponent: WantToReadComponent? = null
     private var likedComponent: LikedComponent? = null
+    private var quoteComponent: QuoteComponent? = null
+    private var quoteListComponent: QuoteListComponent? = null
 
     fun init(app: App) {
         appComponent = DaggerAppComponent.builder()
@@ -81,5 +85,25 @@ object AppInjector {
 
     fun clearLikedComponent() {
         likedComponent = null
+    }
+
+    fun plusQuoteComponent(): QuoteComponent = quoteComponent
+        ?: appComponent.quoteComponent()
+            .build().also {
+                quoteComponent = it
+            }
+
+    fun clearQuoteComponent() {
+        quoteComponent = null
+    }
+
+    fun plusQuoteListComponent(): QuoteListComponent = quoteListComponent
+        ?: appComponent.quoteListComponent()
+            .build().also {
+                quoteListComponent = it
+            }
+
+    fun clearQuoteListComponent() {
+        quoteListComponent = null
     }
 }

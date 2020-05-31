@@ -1,7 +1,7 @@
 package com.example.inbook.domain.mybooks.services
 
 import androidx.lifecycle.LiveData
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 
 interface BookService {
     fun getMyBooks(): ArrayList<LiveData<Book>>

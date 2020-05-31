@@ -34,9 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         app:labelVisibilityMode="labeled"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/b_n_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,6 +75,10 @@ class AuthenticationImpl @Inject constructor(val context: Context)
         return false
     }
 
+    override fun getName(): String {
+        return mAuth.currentUser?.displayName ?: mAuth.currentUser?.email ?: "name"
+    }
+
     override fun signInWithGoogle(string: String): String{
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

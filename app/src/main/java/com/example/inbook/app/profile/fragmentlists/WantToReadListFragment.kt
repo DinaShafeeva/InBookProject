@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inbook.R
 import com.example.inbook.app.profile.vm.WantToReadViewModel
 import com.example.inbook.app.profile.fragmentlists.rv.WRAdapter
-import com.example.inbook.app.profile.vm.ProfileViewModel
 import com.example.inbook.di.AppInjector
-import com.example.inbook.domain.mybooks.models.Book
-import kotlinx.android.synthetic.main.fragment_my_books.*
+import com.example.inbook.domain.models.Book
 import kotlinx.android.synthetic.main.fragment_want_to_read_list.*
 import javax.inject.Inject
 

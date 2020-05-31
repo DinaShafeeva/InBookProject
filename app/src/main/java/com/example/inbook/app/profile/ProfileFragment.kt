@@ -2,13 +2,13 @@ package com.example.inbook.app.profile
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.viewpager.widget.ViewPager
 import com.example.inbook.R
 import com.example.inbook.app.profile.vm.ProfileViewModel
@@ -29,23 +29,20 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // tv_name_profile.text = viewModel.getName().value
+
         getActivity()?.findViewById<BottomNavigationView>(R.id.btv_main)?.visibility = View.VISIBLE
-//        viewModel.getName().observe(viewLifecycleOwner, Observer {
-            tv_name_profile.text = viewModel.getName().value
-//        })
-//
+
         viewModel.getBooksCount().observe(viewLifecycleOwner, Observer {
             val booksCount = "Read books: $it"
             tv_books_count.text = booksCount
         })
-//        val booksCount = viewModel.getBooksCount().value + " books was read"
- //       tv_books_count.text = booksCount
 
+        viewModel.getLikedBooksCount().observe(viewLifecycleOwner, Observer {
+            val booksCount = "Liked books: $it"
+            tv_books_liked_count.text = booksCount
+        })
 
         vp_profile.adapter = PagerAdapter(childFragmentManager, lifecycle)
-
-     //   tabs_profile.setupWithViewPager(viewPager)
 
         TabLayoutMediator(tabs_profile, vp_profile,
             TabLayoutMediator.TabConfigurationStrategy { tabs, position ->
@@ -56,6 +53,9 @@ class ProfileFragment : Fragment() {
                     1 -> {
                         tabs.text = "Liked books"
                     }
+                    2 -> {
+                        tabs.text = "Quotes"
+                    }
                 }
             }).attach()
     }
@@ -64,11 +64,20 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        tb_profile?.navigationIcon =
+            view?.context?.let { ContextCompat.getDrawable(it, R.drawable.icn_out) }
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        activity?.getMenuInflater()?.inflate(R.menu.tb_profile, menu)
+//    fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        activity?.getMenuInflater()?.inflate(R.menu.tb_profile, menu)
+//        return true
+//    }
+
+    override fun onOptionsItemSelected(item: MenuItem):Boolean {
+        Log.w("SignOut", "success");
+        viewModel.signOut()
+        view?.let { Navigation.findNavController(it).navigate(R.id.authFragment) }
         return true
     }
 

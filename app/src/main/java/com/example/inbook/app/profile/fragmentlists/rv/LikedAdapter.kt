@@ -3,7 +3,7 @@ package com.example.inbook.app.profile.fragmentlists.rv
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.inbook.app.mybooks.rv.Diff
-import com.example.inbook.domain.mybooks.models.Book
+import com.example.inbook.domain.models.Book
 
 class LikedAdapter  (
     private val clickLambda: (Book) -> Unit
