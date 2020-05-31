@@ -47,55 +47,29 @@ class AuthFragment : Fragment() {
 
         getActivity()?.findViewById<BottomNavigationView>(R.id.btv_main)?.visibility = View.GONE
 
-         if(viewModel?.isAuth() ?:false) {
-                Navigation.findNavController(view).navigate(R.id.profileFragment)
-                Log.d("IsAuth", "true")
-            } else  Log.d("IsAuth", "false")
+        if (viewModel?.isAuth() ?: false) {
+            Navigation.findNavController(view).navigate(R.id.profileFragment)
+            Log.d("IsAuth", "true")
+        } else Log.d("IsAuth", "false")
 
         btn_register.setOnClickListener { x ->
-            if (
-                viewModel?.createAccount(et_email.text.toString(), et_password.text.toString())
-                    .equals("success")
-            ){
-                getActivity()?.let {
-                    Snackbar.make(
-                        it.findViewById(android.R.id.content),
-                        "Success",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+            if ((!et_email.text.toString().isEmpty()) && (!et_password.text.toString().isEmpty())) {
+                if (
+                    viewModel?.createAccount(et_email.text.toString(), et_password.text.toString(), view)
+                        .equals("success")
+                ) {
+                    Navigation.findNavController(view).navigate(R.id.profileFragment)
                 }
-                 Navigation.findNavController(view).navigate(R.id.profileFragment)
             }
         }
         btn_auth.setOnClickListener { x ->
-            if (
-                viewModel?.signIn(et_email.text.toString(), et_password.text.toString())
-                    .equals("success")
-            ) {
-                getActivity()?.let {
-                    Snackbar.make(
-                        it.findViewById(android.R.id.content),
-                        "Success",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+            if ((!et_email.text.toString().isEmpty()) && (!et_password.text.toString().isEmpty())) {
+                if (
+                    viewModel?.signIn(et_email.text.toString(), et_password.text.toString(),view).equals("success")
+                ) {
+                    Navigation.findNavController(view).navigate(R.id.profileFragment)
                 }
-                Navigation.findNavController(view).navigate(R.id.profileFragment)
             }
-        }
-        btn_google_sign_in.setOnClickListener { x ->
-            if (
-                viewModel?.signInWithGoogle(getString(R.string.default_web_client_id))
-                    .equals("success")
-            ){
-                getActivity()?.let {
-                    Snackbar.make(
-                        it.findViewById(android.R.id.content),
-                        "Success",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
-            Navigation.findNavController(view).navigate(R.id.profileFragment)
-        }
         }
     }
 

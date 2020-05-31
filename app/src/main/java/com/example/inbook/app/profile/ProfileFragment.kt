@@ -58,6 +58,11 @@ class ProfileFragment : Fragment() {
                     }
                 }
             }).attach()
+
+        btn_sign_out.setOnClickListener{
+            viewModel.signOut()
+            it.let { Navigation.findNavController(it).navigate(R.id.authFragment) }
+        }
     }
 
     override fun onCreateView(
