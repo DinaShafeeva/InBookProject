@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.mybooks.BookFragment">
+    tools:context=".app.mybooks.BookFragment"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/iv_image_book_fragment"
@@ -22,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textSize="18pt"
+        android:textSize="16pt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_dark"
         app:layout_constraintTop_toBottomOf="@+id/iv_image_book_fragment"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Author"
-        android:textSize="16pt"
+        android:textSize="14pt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_of_book_book_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -46,28 +49,33 @@
         android:layout_height="wrap_content"
         android:text="Description"
         android:textSize="10pt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toBottomOf="@+id/tv_author_book_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"/>
     <Button
         android:id="@+id/btn_have_read"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Have read"
+        android:textAllCaps="false"
         android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_want_to_read"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toBottomOf="@+id/tv_description_book_fragment" />
 
     <Button
         android:id="@+id/btn_want_to_read"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Want to read"
         android:background="#B44E342E"
+        android:text="Want to read"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -76,24 +84,27 @@
 
     <Button
         android:id="@+id/btn_like"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:text="Like"
-        android:background="@color/colorAccent"
-        android:visibility="invisible"
+        android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_write_quote"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_have_read"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_have_read" />
 
     <Button
         android:id="@+id/btn_write_quote"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Make quote"
-        android:background="@color/colorAccent"
-        android:visibility="invisible"
+        android:background="@null"
+        android:visibility="gone"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
