@@ -32,7 +32,7 @@ class BookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var id: String? = null
+        var id: String?
         viewModel.getBookFromDB(arguments?.getString("name") ?: "null").observe(viewLifecycleOwner, Observer { it ->
             try {
                 tv_name_of_book_book_fragment.text = it.nameOfBook
@@ -45,11 +45,6 @@ class BookFragment : Fragment() {
                 }
                 getImage(iv_image_book_fragment, it.image)
                 id = it.id
-
-                if (viewModel.isBookWasRead(id)){
-                    btn_like.visibility = View.VISIBLE
-                    btn_write_quote.visibility = View.VISIBLE
-                }
                 btn_have_read.setOnClickListener{ view ->
                     btn_like.visibility = View.VISIBLE
                     btn_write_quote.visibility = View.VISIBLE
@@ -74,6 +69,12 @@ class BookFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
+            }
+        })
+        viewModel.visibilityBook.observe(viewLifecycleOwner, Observer {
+            if(it){
+                btn_like.visibility = View.VISIBLE
+                btn_write_quote.visibility = View.VISIBLE
             }
         })
     }

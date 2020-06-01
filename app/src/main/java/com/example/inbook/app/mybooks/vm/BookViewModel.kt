@@ -20,6 +20,8 @@ class BookViewModel( val interactor: BookInteractor): ViewModel() {
     private var book: MutableLiveData<Book> = MutableLiveData()
     private var bookMutableLiveData: MutableLiveData<Book> = MutableLiveData()
 
+    var visibilityBook: MutableLiveData<Boolean> = MutableLiveData(false)
+
     private fun getBookMutableLiveDataByName(name:String): MutableLiveData<Book> {
         var data: Disposable = interactor.getBookByName(name).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
@@ -47,6 +49,7 @@ class BookViewModel( val interactor: BookInteractor): ViewModel() {
         (interactor.getBookByNameFromDB(name).subscribeOn(Schedulers.io())
              .observeOn(AndroidSchedulers.mainThread()).subscribe({
              book.value = it
+                visibilityBook.value = (it.status == 0)
          }, {
                  it.printStackTrace()
              }))
