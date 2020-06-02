@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <navigation
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+        app:startDestination="@id/authFragment">
+
+        <fragment
+        android:id="@+id/searchBookFragment"
+        android:name="com.example.inbook.app.search.SearchBookFragment"
+        android:label="fragment_search_book"
+        tools:layout="@layout/fragment_search_book" />
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.example.inbook.app.profile.ProfileFragment"
+            android:label="fragment_profile"
+            tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/myBooksFragment"
+        android:name="com.example.inbook.app.mybooks.MyBooksFragment"
+        android:label="MyBooksFragment" />
+    <fragment
+        android:id="@+id/bookFragment"
+        android:name="com.example.inbook.app.mybooks.BookFragment"
+        android:label="fragment_book"
+        tools:layout="@layout/fragment_book" />
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.inbook.app.authentication.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" />
+    <fragment
+        android:id="@+id/quoteFragment"
+        android:name="com.example.inbook.app.mybooks.QuoteFragment"
+        android:label="fragment_quote"
+        tools:layout="@layout/fragment_quote" />
+</navigation>

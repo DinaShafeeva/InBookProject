@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">InBook</string>
+
+    <string name="book">My books</string>
+    <string name="book_shelf">Search book</string>
+    <string name="profile">Profile</string>
+
+    <string name="tools">Change profile</string>
+    <string name="actions">Show actions</string>
+    <string name="quotes">Show quotes</string>
+    <string name="comments">Show comments</string>
+
+    <string name="signed_out">Получилооось!</string>
+    <string name="auth_failed">Регистрация не удалась</string>
+    <string name="emailpassword_status_fmt">Статус</string>
+    <string name="firebase_status_fmt">Статус</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

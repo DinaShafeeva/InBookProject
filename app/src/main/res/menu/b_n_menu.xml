@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btn_book"
+        android:icon="@drawable/icn_book"
+        android:iconTint="#FFFFFF"
+        android:title="@string/book" />
+
+    <item
+        android:id="@+id/btn_search"
+        android:icon="@drawable/icn_book_shelf"
+        android:iconTint="#FFFFFF"
+        android:title="@string/book_shelf" />
+
+    <item
+        android:id="@+id/btn_profile"
+        android:icon="@drawable/icn_profile"
+        android:iconTint="#FFFFFF"
+        android:title="@string/profile" />
+</menu>
